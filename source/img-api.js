@@ -23,11 +23,12 @@ const server = http.createServer((req, res) => {
     const maxIndex = imageGroups[randomGroup].quantity;
     const randomIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
     // http://storage.opennet.top:8080/directlink/local/img/cover/nier/img%20%281%29.jpg
-    const picpath = `http://storage.opennet.top:8080/directlink/local/img/cover/${imageGroups[randomGroup].keyword}/img%20%28${randomIndex}%29.jpg`;
+    const picpath = `https://storage.opennet.top/directlink/local/img/cover/${imageGroups[randomGroup].keyword}/img%20%28${randomIndex}%29.webp`;
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.writeHead(302, { 'Location': picpath });
     res.end();
 });
 
-server.listen(3000, () => {
-    console.log('Server running at http://localhost:3000/');
+server.listen(3001, () => {
+    console.log('Server running at http://localhost:3001/');
 });

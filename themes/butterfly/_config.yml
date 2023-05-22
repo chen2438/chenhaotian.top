@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: http://storage.opennet.top:8080/directlink/local/img/base/logo.jpg
+  logo: https://storage.opennet.top/directlink/local/img/base/logo.jpg
   display_title: false
   fixed: false # fixed navigation bar
 
@@ -42,21 +42,21 @@ social:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: http://storage.opennet.top:8080/directlink/local/img/base/logo.jpg
+favicon: https://storage.opennet.top/directlink/local/img/base/logo.jpg
 
 # Avatar (頭像)
 avatar:
-  img: http://storage.opennet.top:8080/directlink/local/img/base/logo.jpg
+  img: https://storage.opennet.top/directlink/local/img/base/logo.jpg
   effect: false
 
 # Disable all banner image
 disable_top_img: false
 
 # The banner image of home page
-index_img: http://storage.opennet.top:8080/directlink/local/img/base/cover.webp
+index_img: https://storage.opennet.top/directlink/local/img/base/cover.webp
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: http://storage.opennet.top:8080/directlink/local/img/base/cover.webp
+default_top_img: https://storage.opennet.top/directlink/local/img/base/cover.webp
 
 # The banner image of archive page
 archive_img:
@@ -91,7 +91,7 @@ cover:
   suffix: 1
   # suffix 在链接后面加入后缀?spm={随机数} 0是不使用后缀、1是?加随机数；2是&加随机数
   default_cover:
-    - http://storage.opennet.top:3000
+    - https://chenhaotian.top:3000
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
   flink: /img/friend_404.gif
@@ -211,7 +211,7 @@ footer:
   owner:
     enable: true
     since: 2019
-  custom_text: <div><img src="http://chenhaotian.top/wp-content/uploads/2023/05/beian.png"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602012607"> 浙公网安备 33010602012607 号</a></div><div><a href="https://beian.miit.gov.cn/">浙 ICP 备 2022026266 号 - 1</a></div>
+  custom_text: <div><img src="https://storage.opennet.top/directlink/local/img/base/beian.png"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602012607"> 浙公网安备 33010602012607 号</a></div><div><a href="https://beian.miit.gov.cn/">浙 ICP 备 2022026266 号 - 1</a></div>
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
