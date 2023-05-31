@@ -63,15 +63,15 @@ F→(E) | id
 ```
 试设计SLR(1)或者LR(1)分析程序，以输入的 (a+b)*c+(d+e) 符号串进行语法分析。
 
-#### 2、实验具体步骤
+#### 2、实验具体步骤 
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01c7b21d.png) 
+![实验三-1](https://media.opennet.top/i/2023/05/31/64772add04250.jpg)
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01c395d9.png) 
+![实验三-2](https://media.opennet.top/i/2023/05/31/64772aed7fb98.jpg)
 
 输入数据：
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01b23e30.jpg) 
+![image-20230531191053648](https://media.opennet.top/i/2023/05/31/64772b40cb0c2.png)
 
 ### 五、 实验结果:
 
