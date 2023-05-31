@@ -1,0 +1,6 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://chenhaotian.top/sitemap.xml
+Sitemap: https://chenhaotian.top/baidusitemap.xml
