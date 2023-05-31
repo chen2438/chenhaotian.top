@@ -16,7 +16,7 @@ copyright: true
 
 ## 实验三 自底向上语法分析器的构建
 
-项目代码：https://github.com/chen2438/zstu-study/tree/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E4%B8%89/SLR(1)
+项目代码：https://github.com/chen2438/zstu-study/tree/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E4%B8%89/
 
 ### 一、 实验要求
 
