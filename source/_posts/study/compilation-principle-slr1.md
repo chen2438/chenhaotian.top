@@ -48,9 +48,9 @@ Parse Table、Augmented Grammar。
 
 **理论基础**（评价依据 理论知识非常清楚）
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01ba35c3.jpg) 
+![image-20230531191404565](https://media.opennet.top/i/2023/05/31/64772bfd02642.png) 
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01b49b61.jpg) 
+![image-20230531191425101](https://media.opennet.top/i/2023/05/31/64772c117ce90.png) 
 
 ### 四、 内容和步骤
 
@@ -71,7 +71,7 @@ F→(E) | id
 
 输入数据：
 
-![image-20230531191053648](https://media.opennet.top/i/2023/05/31/64772b40cb0c2.png)
+![image-20230531191245481](https://media.opennet.top/i/2023/05/31/64772bad78ea8.png)
 
 ### 五、 实验结果:
 
@@ -327,11 +327,9 @@ F i
 
 #### 2、 截图
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01bb575e.jpg) 
+![image-20230531191310815](https://media.opennet.top/i/2023/05/31/64772bc6bb2d0.png) 
 
-![img](https://media.opennet.top/i/2023/05/31/6476f01d2cfc9.jpg) 
-
- 
+ ![image-20230531191321449](https://media.opennet.top/i/2023/05/31/64772bd12e9be.png)
 
 ### 六、 实验结论:
 
