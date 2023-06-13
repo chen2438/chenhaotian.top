@@ -11,13 +11,13 @@
   link_list:
     - name: OpenAI
       link: https://openai.com/
-      avatar: http://storage.opennet.top:8080/directlink/local/img/friend-link/openai.png
+      avatar: https://storage.opennet.top/directlink/local/img/friend-link/openai.png
       descr: 全球领先的生成式 AI 平台
     - name: Poe
       link: https://poe.com/
-      avatar: http://storage.opennet.top:8080/directlink/local/img/friend-link/poe.png
+      avatar: https://storage.opennet.top/directlink/local/img/friend-link/poe.png
       descr: Quora 构建的集成 AI 产品
     - name: Cloudflare
       link: https://www.cloudflare.com/
-      avatar: http://storage.opennet.top:8080/directlink/local/img/friend-link/cloudflare.ico
+      avatar: https://storage.opennet.top/directlink/local/img/friend-link/cloudflare.ico
       descr: 伟大的互联网基础建设提供商
