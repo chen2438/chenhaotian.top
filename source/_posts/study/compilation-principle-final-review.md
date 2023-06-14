@@ -70,7 +70,7 @@ copyright: false
 
 #### 题：正则->NFA->DFA
 
-![IMG_1063](https://media.opennet.top/i/2023/06/14/648945009c7db.png)
+![IMG_1064](https://media.opennet.top/i/2023/06/14/6489738c97569.png)
 
 ![image-20230611212740620](https://media.opennet.top/i/2023/06/11/6485cbcd32c1d.png)
 
