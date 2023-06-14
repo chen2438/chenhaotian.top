@@ -14,6 +14,8 @@ copyright: false
 
 # 编译原理（双语） 期末复习
 
+注意：部分资料来自 `chouxianyu.github.io`，版权归原作者所有。
+
 ## 概论
 
 ![概论_page-0001](https://media.opennet.top/i/2023/06/11/6485e65a80573.jpg)
