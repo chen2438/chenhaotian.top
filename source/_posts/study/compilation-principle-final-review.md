@@ -42,7 +42,7 @@ copyright: false
 
 #### 题：检查匹配
 
-![IMG_1044](https://media.opennet.top/i/2023/06/11/64858f4d6d99e.png)
+![IMG_1065](https://media.opennet.top/i/2023/06/14/64897e5558670.png)
 
 ### 有限自动机
 
