@@ -487,9 +487,18 @@ copyright: false
 ### 4-3 狭义相对论的时空观
 
 $$
-t= \frac{t_0}{\sqrt{1-\beta^2}}\\
-l= l_0\sqrt{1-\beta^2}\\
-m= \frac{m_0}{\sqrt{1-\beta^2}}\\
+t= \frac{t_0}{\sqrt{1-\beta^2}}
+$$
+
+$$
+l= l_0\sqrt{1-\beta^2}
+$$
+
+$$
+m= \frac{m_0}{\sqrt{1-\beta^2}}
+$$
+
+$$
 E_k= mc^2-m_0c^2
 $$
 
