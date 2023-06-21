@@ -16,9 +16,9 @@ copyright: false
 
 ## 总结
 
-![IMG_1113](https://media.opennet.top/i/2023/06/20/649199704be1a.jpg)
+![IMG_1116](https://media.opennet.top/i/2023/06/21/6492bbaa8dbc8.jpg)
 
-![IMG_1114](https://media.opennet.top/i/2023/06/20/649199778f4e9.jpg)
+![IMG_1117](https://media.opennet.top/i/2023/06/21/6492bba14ec47.jpg)
 
 ## 第十章 机械振动和电磁振荡
 
@@ -161,6 +161,8 @@ copyright: false
 #### 题：波的叠加
 
 ![image-20230619152037322](https://media.opennet.top/i/2023/06/19/649001c894345.png)
+
+答案中2Pi后应加括号
 
 ![IMG_1087](https://media.opennet.top/i/2023/06/19/6490026988e38.png)
 
