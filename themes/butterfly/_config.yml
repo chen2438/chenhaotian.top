@@ -211,7 +211,7 @@ footer:
   owner:
     enable: true
     since: 2019
-  custom_text: <div><img src="https://storage.opennet.top/directlink/local/img/base/beian.png"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602012607"> 浙公网安备 33010602012607 号</a></div><div><a href="https://beian.miit.gov.cn/">浙 ICP 备 2022026266 号 - 1</a></div>
+  custom_text: <div><a href="https://icp.gov.moe/?keyword=20230713" target="_blank">萌ICP备20230713号</a></div><div><a href="https://beian.miit.gov.cn/">浙 ICP 备 2022026266 号 - 1</a></div><div><img src="https://storage.opennet.top/directlink/local/img/base/beian.png"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602012607"> 浙公网安备 33010602012607 号</a></div>
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
