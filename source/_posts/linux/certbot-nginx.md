@@ -127,3 +127,60 @@ Congratulations, all renewals succeeded. The following certs have been renewed:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
 
+## Nginx 配置文件示例
+
+在写配置文件时只需写 80 端口，Certbot 会自动添加 443 端口的监听以及 SSL 证书的配置
+
+```bash
+server {
+    listen 80;
+    server_name storage.opennet.top;
+
+    location / {
+        gzip off;
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/storage.opennet.top/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/storage.opennet.top/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+```
+
+## 取消 Certbot 对网站的管理
+
+**1. 删除证书：**
+
+列出 Certbot 管理的所有证书
+
+```bash
+sudo certbot certificates
+```
+
+删除证书，将 `name_of_certificate` 替换为证书名称，此时会自动取消续期
+
+```bash
+sudo certbot delete --cert-name name_of_certificate
+```
+
+**2. 删除 Nginx 的 SSL 配置：**
+
+在 Nginx 配置中删除关于该证书的引用。编辑 Nginx 配置文件（通常位于 `/etc/nginx/sites-available/`），删除或注释掉所有 `# managed by Certbot` 的代码
+
+![image-20230713132458018](https://media.opennet.top/i/2023/07/13/64af8aaa310a5.png)
+
+重新加载 Nginx
+
+```bash
+sudo systemctl reload nginx
+```
+
