@@ -156,12 +156,21 @@ certbot renew --dry-run
 
 ![image-20230717100543832](https://media.opennet.top/i/2023/07/17/qnej20-0.png)
 
-## 提示
+## 注意事项 / 提示
 
-更改 PHP 和 Nginx 配置文件后记得重启
+- 官方 Github 仓库：https://github.com/icret/EasyImages2.0/
+- 所有操作以 root 权限进行
+- Vim 的操作可自行寻找教程或询问 ChatGPT
+- 更改 PHP 和 Nginx 配置文件后记得重启
 
-```bash
-systemctl restart php7.4-fpm
-systemctl restart nginx
-```
+	```bash
+	systemctl restart php7.4-fpm
+	systemctl restart nginx
+	```
 
+- 从其他图床迁移图片后记得更改图片权限为 0755 (或0644) 和 www-data
+
+    ```bash
+    chmod -R 755 /var/www/html/EasyImages2.0/
+    chown -R www-data:www-data /var/www/html/EasyImages2.0/
+    ```
