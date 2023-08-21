@@ -1,8 +1,8 @@
 ---
-description: 发布于 2022-08-21
+description: 发布于 2023-08-21
 categories:
 - linux
-date: 2022-08-21
+date: 2023-08-21
 slug: openwrt-nezha
 title: OpenWRT 安装哪吒监控
 updated: 

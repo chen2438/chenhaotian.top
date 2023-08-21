@@ -87,6 +87,28 @@ df -h
 chmod -R 777 /mnt/slab1
 ```
 
+**设置开机自动挂载**
+
+```bash
+vim /etc/fstab
+```
+
+在文件的最后，添加以下行
+
+```bash
+/dev/disk/by-id/scsi-0BUYVM_SLAB_VOLUME-序列号 /mnt/slab1 ext4 discard,defaults 0 0
+```
+
+测试 `/etc/fstab` 文件没有错误
+
+```bash
+mount -a
+```
+
+如果没有错误，这个命令不会有输出
+
+注意：谨慎编辑 `/etc/fstab` 文件，若其出错，可能会导致系统启动失败。
+
 ## 提示
 
 在访问存储块时，应该访问挂载点 `/mnt/slab1` 而不是文件系统 `/dev/sda`
