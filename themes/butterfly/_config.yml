@@ -237,7 +237,7 @@ aside:
       link: https://github.com/chen2438
   card_announcement:
     enable: true
-    content: 看我 new 一个对象
+    content: 图片存储在海外 不保证大陆连通性
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
