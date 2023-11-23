@@ -5,7 +5,7 @@ categories:
 date: 2023-07-13
 slug: certbot-nginx
 title: 使用 Certbot 为 Nginx 自动配置 SSL 证书
-updated: 
+updated: 2023-11-23
 tags: 
 - linux
 - certbot
@@ -184,3 +184,39 @@ sudo certbot delete --cert-name name_of_certificate
 sudo systemctl reload nginx
 ```
 
+---
+
+## 使用 Cloudflare API 颁发证书
+
+```bash
+apt install python3-certbot-dns-cloudflare
+```
+
+创建 API 密钥文件
+
+```bash
+mkdir -p /etc/letsencrypt
+touch /etc/letsencrypt/cloudflare.ini
+chmod 600 /etc/letsencrypt/cloudflare.ini
+```
+
+编辑这个文件，添加你的 API 密钥：
+
+```
+# Cloudflare API credentials used by Certbot
+dns_cloudflare_email = your-email@example.com
+dns_cloudflare_api_key = your-api-key
+```
+
+如果你使用的是 API 令牌而不是全局 API 密钥：
+
+```
+# Cloudflare API token used by Certbot
+dns_cloudflare_api_token = your-api-token
+```
+
+运行 Certbot
+
+```bash
+certbot --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -i nginx -d 'www.example.com'
+```
