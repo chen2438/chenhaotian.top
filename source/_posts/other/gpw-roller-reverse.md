@@ -16,3 +16,5 @@ copyright: false
 解决方法：底座朝天放在沙发上滚两下
 
 来源：https://www.bilibili.com/video/BV1bq4y1x7kW 评论区
+
+UPD：并不能根治，只能顶一会
