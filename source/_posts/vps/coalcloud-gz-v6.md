@@ -95,8 +95,6 @@ Geekbench 5 测试结果
 
 ### Speedtest
 
-![IMG_20231230_112804](https://media.opennet.top/i/2023/12/30/ik5jj1-0.jpg)
-
 实测搭配 ByteVirt SG v6 可跑 170Mbps 左右
 
 ![image-20231230110445846](https://media.opennet.top/i/2023/12/30/hhyh6q-0.png)
