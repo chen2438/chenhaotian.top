@@ -5,7 +5,7 @@ categories:
 date: 2023-06-18
 slug: discrete-mathematics-final-review
 title: 离散数学 期末复习
-updated: 
+updated: 2024-01-06
 tags: 
 - study
 - discrete-mathematics
@@ -13,6 +13,8 @@ copyright: false
 ---
 
 # 离散数学 期末复习
+
+zstu 浙江理工大学 2022学年第2学期 离散数学B
 
 ## 第 1 章 命题逻辑
 
