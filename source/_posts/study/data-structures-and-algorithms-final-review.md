@@ -5,7 +5,7 @@ categories:
 date: 2024-01-08
 slug: data-structures-and-algorithms-final-review
 title: 数据结构与算法 期末复习
-updated: 
+updated: 2024-01-11
 tags: 
 - study
 - data-structures-and-algorithms
@@ -15,6 +15,21 @@ copyright: false
 # 数据结构与算法 期末复习
 
 zstu 浙江理工大学 2023学年第1学期 数据结构与算法
+
+```
+huffman 带权路径长度 WPL: 路径长度 * 点的权值
+
+prim: 在已确定生成树的相邻边找最小的
+kruskal: 边按权值升序，依次选中，不能形成环
+
+dijkstra: 每轮确定一个距离源点最短的点
+floyd: 对于每一对顶点，尝试通过另一个顶点查找更短路径
+
+Hash 失败查找长度：表内所有项都要计算(?) 直到找到空的次数
+
+程序填空注意 T==NULL 的情况
+树->二叉树：兄弟相连；取左孩子
+```
 
 ## 第 1 章 绪论
 
@@ -190,9 +205,146 @@ Node* reverseLinkedListMethod2(Node* head) {
 
 ![image-20240106232530724](https://media.opennet.top/i/2024/01/06/12bs05q-0.png)
 
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100  // 定义栈的最大容量
+
+// 栈的结构定义
+typedef struct {
+    int items[MAX_SIZE];
+    int top;
+} Stack;
+
+// 初始化栈
+void initializeStack(Stack *s) {
+    s->top = -1;
+}
+
+// 检查栈是否为空
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// 检查栈是否已满
+int isFull(Stack *s) {
+    return s->top == MAX_SIZE - 1;
+}
+
+// 推入操作
+void push(Stack *s, int item) {
+    if (isFull(s)) {
+        printf("栈已满，无法添加元素\n");
+        return;
+    }
+    s->items[++s->top] = item;
+}
+
+// 弹出操作
+int pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf("栈为空，无法弹出元素\n");
+        return -1;  // 返回-1表示栈为空
+    }
+    return s->items[s->top--];
+}
+
+// 主函数
+int main() {
+    Stack s;
+    initializeStack(&s);
+
+    push(&s, 10);
+    push(&s, 20);
+    push(&s, 30);
+
+    printf("弹出的元素：%d\n", pop(&s));
+    printf("弹出的元素：%d\n", pop(&s));
+
+    return 0;
+}
+```
+
+
+
 ### 3.2 队列
 
 ![image-20240106232719626](https://media.opennet.top/i/2024/01/06/12cwe3n-0.png)
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100  // 定义队列的最大容量
+
+// 队列的结构定义
+typedef struct {
+    int items[MAX_SIZE];
+    int front, rear;
+} Queue;
+
+// 初始化队列
+void initializeQueue(Queue *q) {
+    q->front = -1;
+    q->rear = -1;
+}
+
+// 检查队列是否为空
+int isEmpty(Queue *q) {
+    return q->rear == -1;
+}
+
+// 检查队列是否已满
+int isFull(Queue *q) {
+    return q->rear == MAX_SIZE - 1;
+}
+
+// 入队操作
+void enqueue(Queue *q, int item) {
+    if (isFull(q)) {
+        printf("队列已满，无法添加元素\n");
+        return;
+    }
+    if (isEmpty(q)) {
+        q->front = 0;
+    }
+    q->rear++;
+    q->items[q->rear] = item;
+}
+
+// 出队操作
+int dequeue(Queue *q) {
+    if (isEmpty(q)) {
+        printf("队列为空，无法弹出元素\n");
+        return -1;  // 返回-1表示队列为空
+    }
+    int item = q->items[q->front];
+    q->front++;
+    if (q->front > q->rear) {
+        // 重置队列
+        initializeQueue(q);
+    }
+    return item;
+}
+
+// 主函数
+int main() {
+    Queue q;
+    initializeQueue(&q);
+
+    enqueue(&q, 10);
+    enqueue(&q, 20);
+    enqueue(&q, 30);
+
+    printf("出队的元素：%d\n", dequeue(&q));
+    printf("出队的元素：%d\n", dequeue(&q));
+
+    return 0;
+}
+```
+
+
 
 ### 3.4 数组和特殊矩阵
 
@@ -301,6 +453,35 @@ typedef struct TreeNode{
 
 要求掌握求二叉树深度的代码，判断是否为满二叉树的代码
 
+```c
+// 计算二叉树的最大深度
+int maxDepth(TreeNode* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    int leftDepth = maxDepth(root->left);
+    int rightDepth = maxDepth(root->right);
+    return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
+}
+
+// 计算二叉树的节点数
+int countNodes(TreeNode* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+
+// 判断是否为满二叉树
+int isFullBinaryTree(TreeNode* root) {
+    int depth = maxDepth(root);
+    int nodes = countNodes(root);
+    return nodes == (1 << depth) - 1;
+}
+```
+
+
+
 #### 5.3.1 二叉树的遍历
 
 先序
@@ -346,6 +527,8 @@ void PostOrder(Tree T){
 ![image-20240106155215156](https://media.opennet.top/i/2024/01/06/pjhpxw-0.png)
 
 #### 题目
+
+对于前序、中序找后序，树的结点确定顺序=前序
 
 ![image-20240107094239772](https://media.opennet.top/i/2024/01/07/fgeoy7-0.png)
 
@@ -1286,7 +1469,7 @@ int main() {
 
 ##### 线性表的顺序查找
 
-要求掌握带哨兵的代码实现
+要求掌握带哨兵的代码实现。哨兵为a[0]，从后往前找，就不用判断数组是否越界
 
 ![image-20240106203702223](https://media.opennet.top/i/2024/01/06/xk5e3d-0.png)
 
@@ -1365,6 +1548,8 @@ int binarySearch(int a[], int val){
 
 #### 题目
 
+删除根节点时，倾向于把前驱拿上来
+
 ![image-20240107094441347](https://media.opennet.top/i/2024/01/07/fhlthj-0.png)
 
 ### 7.5 哈希表
@@ -1397,9 +1582,9 @@ int binarySearch(int a[], int val){
 
 #### 题目
 
-![image-20240107105628828](https://media.opennet.top/i/2024/01/07/hc7oim-0.png)
+![image-20240111132601937](https://media.opennet.top/i/2024/01/11/lsd1ri-0.png)
 
-![](https://media.opennet.top/i/2024/01/07/hcoyp3-0.png)
+![image-20240111132613907](https://media.opennet.top/i/2024/01/11/lsfqju-0.png)
 
 ## 第 8 章 排序
 
@@ -1423,7 +1608,7 @@ void InsertSort(int a[], int n){
     for(i = 2; i <= n; i++){
         if(a[i] < a[i - 1]){
             a[0] = a[i]; //哨兵
-            for(j = i - 1; a[0] < a[i]; j--)
+            for(j = i - 1; a[0] < a[j]; j--)
                 a[j + 1] = a[j];
             a[j + 1] = a[0]
         }
