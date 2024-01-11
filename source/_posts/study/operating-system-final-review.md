@@ -5,7 +5,7 @@ categories:
 date: 2024-01-08
 slug: operating-system-final-review
 title: 操作系统 期末复习
-updated: 2024-01-10
+updated: 2024-01-11
 tags: 
 - study
 - operating-system
@@ -116,6 +116,11 @@ Work 系统剩余资源
 分页存储 地址变换机构
 【页表寄存器：页表起始地址、页表长度】【越界中断】【逻辑地址：页号、页内偏移量】
 【页表：页号->块号】【物理地址：块号、页内偏移量、物理地址】
+页表起始地址+页号=页号
+页表长度 < 页号 => 越界中断
+块号 指向 物理地址
+偏移量 指向 物理地址
+
 页号=逻辑地址/页面大小
 偏移量=逻辑地址%页面大小
 
@@ -506,7 +511,7 @@ Multileved Feedback Queue, FB
 
 ![image-20231116215356974](https://media.opennet.top/i/2023/11/16/zmguw8-0.png)
 
-#### 3.3.4 最低松弛度优先
+#### 3.3.4 最低松弛度优先 ※
 
 抢占式
 
