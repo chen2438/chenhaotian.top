@@ -16,3 +16,5 @@ hexo generate
 rm -rf ../chenhaotian.top/
 mkdir -p ../chenhaotian.top/piblic/
 cp -r public/ ../chenhaotian.top/public/
+
+cd /var/www/html
