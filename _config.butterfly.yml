@@ -237,7 +237,7 @@ aside:
       link: https://github.com/chen2438
   card_announcement:
     enable: true
-    content: 图床已接入负载均衡的大陆优化线路<br>合租拼车：<a href="https://share.vayki.com/">ChatGPT Plus 25元/月</a>
+    content: 合租拼车：<a href="https://share.vayki.com/">ChatGPT Plus 25元/月</a>
 
   card_recent_post:
     enable: true
