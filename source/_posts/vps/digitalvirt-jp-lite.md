@@ -2,10 +2,10 @@
 description: 发布于 2023-07-18
 categories:
 - vps
-date: 2024-02-12
+date: 2023-07-18
 slug: digitalvirt-jp-lite
 title: DigitalVirt 日本 Lite VPS 测评
-updated: 
+updated: 2024-02-12
 tags: 
 - vps
 - digitalvirt
