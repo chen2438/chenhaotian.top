@@ -50,7 +50,7 @@ vim /etc/ssh/sshd_config
 ### 环境变量
 
 ```bash
-echo 'export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64' >> ~/.bashrc # 如果是arm，自行修改
 echo 'export HADOOP_HOME=/usr/local/hadoop' >> ~/.bashrc
 echo 'export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin' >> ~/.bashrc
 source ~/.bashrc
@@ -143,7 +143,7 @@ vim $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 在文件末尾追加
 
 ```bash
-export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64
+export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk-amd64 #arm机器自行修改
 export HDFS_NAMENODE_USER=root
 export HDFS_DATANODE_USER=root
 export HDFS_SECONDARYNAMENODE_USER=root
