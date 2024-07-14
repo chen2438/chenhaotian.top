@@ -36,7 +36,7 @@ code_word_wrap: true
 #   icon: link || the description || color
 social:
   fab fa-github: https://github.com/chen2438 || Github || '#24292e'
-  fas fa-envelope: mailto:eternal.cht@gmail.com || Email || '#4a7dbe'
+  fas fa-envelope: mailto:admin@vayki.com || Email || '#4a7dbe'
 
 # Image (圖片設置)
 # --------------------------------------
@@ -237,7 +237,7 @@ aside:
       link: https://github.com/chen2438
   card_announcement:
     enable: true
-    content: 合租拼车：<a href="https://share.vayki.com/">ChatGPT Plus 25元/月</a>
+    content: 欢迎关注：<a href="https://github.com/chen2438/zstu-study">zstu-study</a>
 
   card_recent_post:
     enable: true
