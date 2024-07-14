@@ -2,13 +2,13 @@
   class_desc: 那些人，那些事
   link_list:
     - name: GiftHub
-      link: https://gifthub.cn
+      link: https://gifthub.cn/
       avatar: https://gifthub.cn/upload/Logo1.svg
       descr: 致力分享学习中的好东西
-    - name: Hexo
-      link: https://hexo.io/zh-tw/
-      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
-      descr: 快速、简单且强大的网志框架
+    - name: zty的随手记
+      link: https://zty.ink/
+      avatar: https://zty.ink/colorduck.svg
+      descr: 记录生活中的快乐时间
 
 - class_name: 网站
   class_desc: 值得推荐的网站
