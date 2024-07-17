@@ -17,19 +17,39 @@
       link: https://hikami.moe/
       avatar: https://hikami.moe/wp-content/uploads/2022/04/cropped-Pixiv_96477234.png
       descr: 发给互联网的问候～
+    - name: 海上的宫殿
+      link: https://soha.moe/
+      avatar: https://secure.gravatar.com/avatar/5bf3f242d4fdca6849d31792a3c83c80
+      descr: 是你想来Soha的在海上宫殿参观吗？
 
 - class_name: 网站
   class_desc: 值得推荐的网站
   link_list:
+    - name: Cloudflare
+      link: https://www.cloudflare.com/
+      avatar: https://storage.opennet.top/directlink/local/img/friend-link/cloudflare.ico
+      descr: 伟大的互联网基础设施提供商
     - name: OpenAI
       link: https://openai.com/
       avatar: https://storage.opennet.top/directlink/local/img/friend-link/openai.png
       descr: 全球领先的生成式 AI 平台
-    - name: Poe
-      link: https://poe.com/
-      avatar: https://storage.opennet.top/directlink/local/img/friend-link/poe.png
-      descr: Quora 构建的集成 AI 产品
-    - name: Cloudflare
-      link: https://www.cloudflare.com/
-      avatar: https://storage.opennet.top/directlink/local/img/friend-link/cloudflare.ico
-      descr: 伟大的互联网基础建设提供商
+    - name: NodeSeek
+      link: https://www.nodeseek.com/
+      avatar: https://www.nodeseek.com/static/image/favicon/android-chrome-192x192.png
+      descr: 知名 VPS 论坛
+
+- class_name: 本站设施
+  class_desc: 支持本站的服务设施
+  link_list:
+    - name: Global Service
+      link: https://monitor.vayki.com/
+      avatar: https://monitor.vayki.com/static/logo.svg?v20210804
+      descr: 服务器监控
+    - name: Zfile
+      link: https://storage.opennet.top/local/img
+      avatar: https://storage.opennet.top/favicon.svg
+      descr: 基础媒体库
+    - name: EasyImage
+      link: https://media.opennet.top/
+      avatar: https://media.opennet.top/favicon.ico
+      descr: 博文图床
