@@ -19,6 +19,7 @@ menu:
 #    电影: /movies/ || fas fa-video
   友链: /link/ || fas fa-link
   项目: /projects/ || fas fa-book
+  碎碎念: https://blog.vayki.com/ || fas fa-blog
   关于: /about/ || fas fa-heart
 
 
@@ -36,8 +37,9 @@ code_word_wrap: true
 # formal:
 #   icon: link || the description || color
 social:
-  fab fa-github: https://github.com/chen2438 || Github || '#24292e'
-  fas fa-envelope: mailto:admin@vayki.com || Email || '#4a7dbe'
+  fab fa-github: https://github.com/chen2438/ || Github || '#24292e'
+  fas fa-envelope: mailto:admin@vayki.com || Email || '#1E90FF'
+  fas fa-blog: https://blog.vayki.com/ || Channel || '#FF6347'
   fas fa-rss: /rss.xml || RSS || '#FFA500'
 
 rss: 
