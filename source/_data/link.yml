@@ -33,6 +33,10 @@
       link: https://blog.highp.ing/
       avatar: https://blog.highp.ing/favicon-32x32.png
       descr: High Ping Network
+    - name: InsectMk
+      link: https://insectmk.cn/
+      avatar: https://insectmk.cn/static/img/head/insectmk.jpg
+      descr: 每天都要微笑
 
 - class_name: 网站
   class_desc: 值得推荐的网站与服务
