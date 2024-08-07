@@ -38,6 +38,10 @@ code_word_wrap: true
 social:
   fab fa-github: https://github.com/chen2438 || Github || '#24292e'
   fas fa-envelope: mailto:admin@vayki.com || Email || '#4a7dbe'
+  fas fa-rss: /rss.xml || RSS || '#FFA500'
+
+rss: 
+  - /rss.xml
 
 # Image (圖片設置)
 # --------------------------------------
