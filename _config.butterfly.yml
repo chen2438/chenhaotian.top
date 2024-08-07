@@ -8,6 +8,7 @@ nav:
   fixed: false # fixed navigation bar
 
 # Menu 目錄
+# 图标代码: https://fontawesome.com/search
 menu:
   首页: / || fas fa-home
   时间轴: /archives/ || fas fa-archive
