@@ -132,7 +132,7 @@ feed:
     - rss.xml
   limit: 0  # 设置Feed中显示的文章数量上限，0或false表示显示所有文章
   hub:  # PubSubHubbub中心URL，如果不使用可以留空
-  content:  # 是否在Feed中包含文章全文内容，true为包含，false为不包含
+  content: false # 是否在Feed中包含文章全文内容，true为包含，false为不包含
   content_limit: 140  # 设置Feed中文章内容的长度限制，仅当content为false时有效
   content_limit_delim: ' '  # 设置内容长度限制的分割符，默认为空格
   order_by: -date  # 设置Feed中文章的排序方式，默认按日期倒序
