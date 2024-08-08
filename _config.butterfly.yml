@@ -909,9 +909,10 @@ css_prefix: true
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
-    # - <link rel="stylesheet" href="/xxx.css">
+    - <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.css">
   bottom:
-    # - <script src="xxxx"></script>
+    - <script>let tianliGPT_postSelector = '\#post \#article-container'; let tianliGPT_key = '6gVFpD0GfAq'; let tianliGPT_wordLimit = 5000; let tianliGPT_typingAnimate = true;</script>
+    - <script src="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.min.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
