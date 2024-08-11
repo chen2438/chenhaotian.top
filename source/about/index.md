@@ -25,11 +25,18 @@ updated: 2024-08-11
 - ~~Databases: MySQL~~
 - ~~Tools & Technologies: Git, Docker, VS Code~~
 
+## 📱 Devices
+
+- 📱 **Phone**: OPPO Find X6, iPhone XS Max, Redmi K50, Mi 6
+- 📲 **Tablet**: M1 iPad Pro
+- 💻 **Laptop**: Legion R7000P 2021, M1 Macbook Pro
+- 🖥️ **Desktop**: Core 9900KF & RTX 2080 Super
+
 ## 🌐 How to Reach Me
 
-- 📧 Email: admin@vayki.com
-- 🐦 Twitter: N/A
-- 📷 Instagram: N/A
+- 📧 **Email**: admin@vayki.com
+- 🐦 **Twitter**: N/A
+- 📷 **Instagram**: N/A
 
 ## 📊 GitHub Stats
 
