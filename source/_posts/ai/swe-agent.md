@@ -212,3 +212,5 @@ index 0000000..c108c2a
 如果配置不当或模型原因，陷入死循环，会快速消耗tokens，请在有人值守的情况下运行。
 
 ![image-20241228221400285](https://media.opennet.top/i/2024/12/28/yzwp6u-0.png)
+
+根据论文`SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering`，成功实例的均值成本（GPT-4）为\$1.21，步骤数为12；不成功的均值成本为\$2.52，步骤数为21；成功的运行通常会更早完成，且加大预算不会显著提高性能。
