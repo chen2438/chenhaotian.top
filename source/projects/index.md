@@ -50,3 +50,16 @@ https://waline.js.org/
 https://js.org/
 
 提供免费子域名服务的网站，专为 JavaScript 项目和个人开发者设计。
+
+## TianliGPT
+
+https://github.com/zhheo/Post-Abstract-AI/
+
+适用于绝大多数博客的文章摘要生成器。
+
+## Mix Space
+
+https://mx-space.js.org/
+
+一个替代个人空间的新方式。
+
