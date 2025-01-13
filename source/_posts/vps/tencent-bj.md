@@ -1,8 +1,8 @@
 ---
-description: 发布于 2024-01-13
+description: 发布于 2025-01-13
 categories:
 - vps
-date: 2024-01-13
+date: 2025-01-13
 slug: tencent-bj
 title: 腾讯云 北京 轻量云 VPS 测评
 updated: 

@@ -1,8 +1,8 @@
 ---
-description: 发布于 2024-01-13
+description: 发布于 2025-01-13
 categories:
 - vps
-date: 2024-01-13
+date: 2025-01-13
 slug: aliyun-bj
 title: 阿里云 北京 ECS VPS 测评
 updated: 
