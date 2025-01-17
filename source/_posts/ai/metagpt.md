@@ -1,8 +1,8 @@
 ---
-description: 发布于 2024-12-30
+description: 发布于 2025-01-17
 categories:
 - ai
-date: 2024-12-30
+date: 2025-01-17
 slug: metagpt
 title: MetaGPT 项目使用记录
 updated: 
