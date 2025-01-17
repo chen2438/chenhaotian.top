@@ -22,6 +22,8 @@ copyright: false
 
 ## 在 Codespaces 中安装
 
+> 如果在本地安装（使用`pip install metagpt` ）,可能会出现 `TypeError: AsyncClient.__init__() got an unexpected keyword argument 'proxies'`，此时使用 `pip uninstall metagpt` 卸载后，使用`pip install git+https://github.com/geekan/MetaGPT` 安装最新版本即可解决
+
 将 https://github.com/geekan/MetaGPT fork 一份，然后创建Codespace
 
 ![image-20241230200953086](https://media.opennet.top/i/2024/12/30/vm2w6i-0.png)
@@ -434,12 +436,17 @@ if __name__ == '__main__':
 
 ```
 
-## 智能体入门
+## 智能体概念
+
+智能体 = 大语言模型 + 观察 + 思考 + 行动 + 记忆
+
+多智能体系统 = 智能体 + 环境 + 标准操作程序 (SOP) + 通信 + 经济
+
+## 智能体
 
 ### 使用现成的智能体
 
 ```python
-# 可导入任何角色，初始化它，用一个开始的消息运行它，完成！
 import asyncio
 
 from metagpt.context import Context
@@ -541,10 +548,11 @@ root@codespaces-f27eab:/workspaces/MetaGPT# /usr/local/bin/python /workspaces/Me
 
 ```python
 """
-Filename: MetaGPT/examples/build_customized_agent.py
-Created Date: Tuesday, September 19th 2023, 6:52:25 pm
-Author: garylin2099
+文件名: MetaGPT/examples/build_customized_agent.py
+创建日期: 2023年9月19日 星期二 下午6:52:25
+作者: garylin2099
 """
+
 import asyncio
 import re
 import subprocess
@@ -558,15 +566,31 @@ from metagpt.schema import Message
 
 
 class SimpleWriteCode(Action):
+    """
+    基于提供的指令生成Python代码的动作类。
+
+    属性:
+        PROMPT_TEMPLATE (str): 用于生成代码编写提示的模板。
+        name (str): 动作名称。
+    """
+
     PROMPT_TEMPLATE: str = """
     Write a python function that can {instruction} and provide two runnable test cases.
     Return ```python your_code_here ``` with NO other texts,
     your code:
     """
-
     name: str = "SimpleWriteCode"
 
     async def run(self, instruction: str):
+        """
+        根据指令生成Python代码。
+
+        参数:
+            instruction (str): 描述要实现功能的指令。
+
+        返回:
+            str: 从模型响应中提取的Python代码。
+        """
         prompt = self.PROMPT_TEMPLATE.format(instruction=instruction)
         rsp = await self._aask(prompt)
         code_text = SimpleWriteCode.parse_code(rsp)
@@ -574,6 +598,15 @@ class SimpleWriteCode(Action):
 
     @staticmethod
     def parse_code(rsp):
+        """
+        从响应中提取包含在markdown代码块中的Python代码。
+
+        参数:
+            rsp (str): 包含代码块的响应字符串。
+
+        返回:
+            str: 提取的Python代码，如果未找到代码块，则返回原始响应。
+        """
         pattern = r"```python(.*)```"
         match = re.search(pattern, rsp, re.DOTALL)
         code_text = match.group(1) if match else rsp
@@ -581,60 +614,111 @@ class SimpleWriteCode(Action):
 
 
 class SimpleRunCode(Action):
+    """
+    运行Python代码并捕获其输出的动作类。
+
+    属性:
+        name (str): 动作名称。
+    """
+
     name: str = "SimpleRunCode"
 
     async def run(self, code_text: str):
-        result = subprocess.run(["python3", "-c", code_text], capture_output=True, text=True)
+        """
+        子进程运行Python代码，捕获输出。
+
+        参数:
+            code_text (str): 要执行的Python代码。
+
+        返回:
+            str: 运行代码的输出结果。
+        """
+        result = subprocess.run(
+            ["python3", "-c", code_text], capture_output=True, text=True
+        )
         code_result = result.stdout
         logger.info(f"{code_result=}")
         return code_result
 
 
 class SimpleCoder(Role):
+    """
+    表示一个能够根据指令编写Python代码的角色。
+
+    属性:
+        name (str): 角色名称。
+        profile (str): 角色标识。
+    """
+
     name: str = "Alice"
     profile: str = "SimpleCoder"
 
     def __init__(self, **kwargs):
+        """
+        初始化SimpleCoder角色，并设置可用的动作。
+        """
         super().__init__(**kwargs)
         self.set_actions([SimpleWriteCode])
 
     async def _act(self) -> Message:
-        logger.info(f"{self._setting}: to do {self.rc.todo}({self.rc.todo.name})")
-        todo = self.rc.todo  # todo will be SimpleWriteCode()
+        """
+        执行当前动作，并生成对应的消息。
 
-        msg = self.get_memories(k=1)[0]  # find the most recent messages
+        返回:
+            Message: 包含生成代码的消息。
+        """
+        logger.info(f"{self._setting}: to do {self.rc.todo}({self.rc.todo.name})")
+        todo = self.rc.todo  # 当前要执行的动作
+        msg = self.get_memories(k=1)[0]  # 获取最近的一条消息
         code_text = await todo.run(msg.content)
         msg = Message(content=code_text, role=self.profile, cause_by=type(todo))
-
         return msg
 
 
 class RunnableCoder(Role):
+    """
+    表示一个能够编写和运行Python代码的角色。
+
+    属性:
+        name (str): 角色名称。
+        profile (str): 角色标识。
+    """
+
     name: str = "Alice"
     profile: str = "RunnableCoder"
 
     def __init__(self, **kwargs):
+        """
+        初始化RunnableCoder角色，设置可用的动作和响应模式。
+        """
         super().__init__(**kwargs)
         self.set_actions([SimpleWriteCode, SimpleRunCode])
         self._set_react_mode(react_mode=RoleReactMode.BY_ORDER.value)
 
     async def _act(self) -> Message:
+        """
+        按顺序执行动作，并生成对应的消息。
+
+        返回:
+            Message: 包含生成代码或执行结果的消息。
+        """
         logger.info(f"{self._setting}: to do {self.rc.todo}({self.rc.todo.name})")
-        # By choosing the Action by order under the hood
-        # todo will be first SimpleWriteCode() then SimpleRunCode()
-        todo = self.rc.todo
-
-        msg = self.get_memories(k=1)[0]  # find the most k recent messages
+        todo = self.rc.todo  # 当前要执行的动作
+        msg = self.get_memories(k=1)[0]  # 获取最近的一条消息
         result = await todo.run(msg.content)
-
         msg = Message(content=result, role=self.profile, cause_by=type(todo))
         self.rc.memory.add(msg)
         return msg
 
 
 def main(msg="write a function that calculates the product of a list and run it"):
-    # role = SimpleCoder()
-    role = RunnableCoder()
+    """
+    主函数，用于初始化角色并执行其动作。
+
+    参数:
+        msg (str): 提供给角色处理的指令消息。
+    """
+    role = RunnableCoder()  # 实例化RunnableCoder角色
     logger.info(msg)
     result = asyncio.run(role.run(msg))
     logger.info(result)
@@ -675,4 +759,644 @@ print(product_function(test_list_2))  # Expected output: 210
 2024-12-30 13:09:14.927 | INFO     | __main__:main:101 - RunnableCoder: 24
 210
 ````
+
+## 多智能体
+
+代码中有3个智能体，分别是程序员、测试员、审查员
+
+需要为每个智能体定义动作（Action），将Action分配到Role中
+
+```python
+"""
+文件名: MetaGPT/examples/build_customized_multi_agents.py
+创建日期: 2023年11月15日，星期三，19:12:39
+作者: garylin2099
+"""
+
+# 正则表达式
+import re
+
+# Fire 用于命令行接口
+import fire
+
+# MetaGPT
+from metagpt.actions import Action, UserRequirement
+from metagpt.logs import logger
+from metagpt.roles import Role
+from metagpt.schema import Message
+from metagpt.team import Team
+
+# 从输入字符串中提取 Python 代码
+def parse_code(rsp):
+    pattern = r"```python(.*)```"  # 匹配代码块的正则表达式
+    match = re.search(pattern, rsp, re.DOTALL)  # 匹配整个字符串，包括换行符
+    code_text = match.group(1) if match else rsp  # 如果找到匹配，提取代码；否则返回原文本
+    return code_text
+
+
+# 写代码Action
+class SimpleWriteCode(Action):
+    PROMPT_TEMPLATE: str = """
+    Write a python function that can {instruction}.
+    Return ```python your_code_here ``` with NO other texts,
+    your code:
+    """
+    name: str = "SimpleWriteCode"  
+
+    # 异步运行Action，返回代码
+    async def run(self, instruction: str):
+        prompt = self.PROMPT_TEMPLATE.format(instruction=instruction)  # 将instruction插入到prompt中
+        rsp = await self._aask(prompt)  # 使用 MetaGPT 的异步询问功能获取响应
+        code_text = parse_code(rsp)  # 提取代码块
+        return code_text
+
+
+# 写代码Role
+class SimpleCoder(Role):
+    name: str = "Alice"
+    profile: str = "SimpleCoder"  
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs) # 调用父类（Role）的构造函数
+        self._watch([UserRequirement])  # 监听用户需求
+        self.set_actions([SimpleWriteCode])  # Action = SimpleWriteCode
+
+
+# 写测试Action
+class SimpleWriteTest(Action):
+    PROMPT_TEMPLATE: str = """
+    Context: {context}
+    Write {k} unit tests using pytest for the given function, assuming you have imported it.
+    Return ```python your_code_here ``` with NO other texts,
+    your code:
+    """
+    name: str = "SimpleWriteTest"  # 动作的名称
+
+    # 异步运行Action
+    async def run(self, context: str, k: int = 3):
+        prompt = self.PROMPT_TEMPLATE.format(context=context, k=k)  # 将context插入到prompt中
+        rsp = await self._aask(prompt)  # 使用异步询问功能获取响应
+        code_text = parse_code(rsp)  # 提取代码块
+        return code_text
+
+
+# 写测试Role
+class SimpleTester(Role):
+    name: str = "Bob"
+    profile: str = "SimpleTester" 
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.set_actions([SimpleWriteTest])  # Action = SimpleWriteTest
+        self._watch([SimpleWriteCode, SimpleWriteReview])  # 监听其他动作
+
+    # 重写行为逻辑，返回Message
+    async def _act(self) -> Message:
+        logger.info(f"{self._setting}: to do {self.rc.todo}({self.rc.todo.name})")
+        todo = self.rc.todo
+        context = self.get_memories()  # 获取所有的记忆作为上下文
+        code_text = await todo.run(context, k=5)  # 执行任务并指定参数
+        msg = Message(content=code_text, role=self.profile, cause_by=type(todo))
+        return msg
+
+
+# 评审Action （对测试用例的评审）
+class SimpleWriteReview(Action):
+    PROMPT_TEMPLATE: str = """
+    Context: {context}
+    Review the test cases and provide one critical comments:
+    """
+    name: str = "SimpleWriteReview"  
+
+    # 异步运行Action
+    async def run(self, context: str):
+        prompt = self.PROMPT_TEMPLATE.format(context=context)
+        rsp = await self._aask(prompt)
+        return rsp
+
+
+# 评审Role （对测试用例的评审）
+class SimpleReviewer(Role):
+    name: str = "Charlie"
+    profile: str = "SimpleReviewer" 
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.set_actions([SimpleWriteReview])  # Action = SimpleWriteReview
+        self._watch([SimpleWriteTest])  # 监听SimpleWriteTest
+
+
+async def main(
+    idea: str = "write a function that calculates the product of a list",
+    investment: float = 3.0,
+    n_round: int = 5,
+    add_human: bool = False,
+):
+    logger.info(idea) 
+
+    team = Team()  # 创建团队对象
+    team.hire(
+        [
+            SimpleCoder(),  # 招募编码Role
+            SimpleTester(),  # 招募测试Role
+            SimpleReviewer(is_human=add_human),  # 招募评审Role
+        ]
+    )
+
+    team.invest(investment=investment)  # 投资团队
+    team.run_project(idea)  # 开始项目
+    await team.run(n_round=n_round)  # 运行多个回合
+
+
+if __name__ == "__main__":
+    fire.Fire(main)  # Fire 构建命令行入口
+```
+
+运行结果：
+
+````bash
+/home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/examples/build_customized_multi_agents.py
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ /home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/examples/build_customized_multi_agents.py
+2025-01-16 10:02:24.913 | INFO     | metagpt.const:get_metagpt_package_root:21 - Package root set to /workspaces/MetaGPT-learn
+2025-01-16 10:02:31.495 | INFO     | __main__:main:126 - write a function that calculates the product of a list
+2025-01-16 10:02:31.528 | INFO     | metagpt.team:invest:93 - Investment: $3.0.
+2025-01-16 10:02:31.529 | INFO     | metagpt.roles.role:_act:403 - Alice(SimpleCoder): to do SimpleWriteCode(SimpleWriteCode)
+```python
+def calculate_product(lst):
+    product = 1
+    for num in lst:
+        product *= num
+    return product
+```
+2025-01-16 10:02:34.012 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.001 | Max budget: $3.000 | Current cost: $0.001, prompt_tokens: 65, completion_tokens: 30
+2025-01-16 10:02:34.016 | INFO     | __main__:_act:86 - Bob(SimpleTester): to do SimpleWriteTest(SimpleWriteTest)
+```python
+import pytest
+from your_module import calculate_product
+
+def test_product_of_positive_numbers():
+    assert calculate_product([1, 2, 3, 4]) == 24
+
+def test_product_with_zero():
+    assert calculate_product([1, 2, 0, 4]) == 0
+
+def test_product_of_negative_numbers():
+    assert calculate_product([-1, -2, -3]) == -6
+
+def test_product_of_mixed_numbers():
+    assert calculate_product([-1, 2, -3, 4]) == 24
+
+def test_product_of_empty_list():
+    assert calculate_product([]) == 1
+```
+2025-01-16 10:02:37.377 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.003 | Max budget: $3.000 | Current cost: $0.003, prompt_tokens: 111, completion_tokens: 136
+2025-01-16 10:02:37.380 | INFO     | metagpt.roles.role:_act:403 - Charlie(SimpleReviewer): to do SimpleWriteReview(SimpleWriteReview)
+The test cases provided for the `calculate_product` function are comprehensive and cover a variety of scenarios, including positive numbers, the presence of zero, negative numbers, mixed numbers, and an empty list. However, one critical comment is that the test suite could benefit from an additional test case that checks the behavior of the function with a list containing a single element. This would ensure that the function correctly handles the edge case where the list has only one number, which should return the number itself as the product. Here's a suggestion for the additional test case:
+
+```python
+def test_product_of_single_element():
+    assert calculate_product([5]) == 5
+```
+
+This test would help confirm that the function correctly returns the single element when the list contains only one number.
+2025-01-16 10:02:40.406 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.007 | Max budget: $3.000 | Current cost: $0.003, prompt_tokens: 223, completion_tokens: 154
+2025-01-16 10:02:40.410 | INFO     | __main__:_act:86 - Bob(SimpleTester): to do SimpleWriteTest(SimpleWriteTest)
+```python
+import pytest
+from your_module import calculate_product
+
+def test_product_of_positive_numbers():
+    assert calculate_product([1, 2, 3, 4]) == 24
+
+def test_product_with_zero():
+    assert calculate_product([1, 2, 0, 4]) == 0
+
+def test_product_of_negative_numbers():
+    assert calculate_product([-1, -2, -3]) == -6
+
+def test_product_of_mixed_numbers():
+    assert calculate_product([-1, 2, -3, 4]) == 24
+
+def test_product_of_empty_list():
+    assert calculate_product([]) == 1
+```
+2025-01-16 10:02:44.017 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.011 | Max budget: $3.000 | Current cost: $0.004, prompt_tokens: 405, completion_tokens: 136
+2025-01-16 10:02:44.020 | INFO     | metagpt.roles.role:_act:403 - Charlie(SimpleReviewer): to do SimpleWriteReview(SimpleWriteReview)
+The test cases for the `calculate_product` function are well-structured and cover a broad range of scenarios, including positive numbers, the presence of zero, negative numbers, mixed numbers, and an empty list. However, as previously noted, the test suite could be further improved by including a test case for a list containing a single element. This would ensure that the function correctly handles the edge case where the list has only one number, which should return the number itself as the product. Adding this test case would enhance the robustness of the test suite by confirming that the function behaves as expected in this specific scenario. Here's the suggested test case:
+
+```python
+def test_product_of_single_element():
+    assert calculate_product([5]) == 5
+```
+
+Including this test would provide additional assurance that the function can handle lists of varying lengths, including the minimal case of a single-element list.
+2025-01-16 10:02:47.381 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.016 | Max budget: $3.000 | Current cost: $0.005, prompt_tokens: 517, completion_tokens: 178
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ 
+````
+
+## 记忆
+
+`Role` 的记忆是 `Message` 的列表。 `Role` 存储其后续 `_observe` 的每个 `Message` 。
+
+### 获取（检索）记忆
+
+当需要记忆时，可以使用 `self.get_memories`
+
+函数定义如下：
+
+```python
+def get_memories(self, k=0) -> list[Message]:
+    """A wrapper to return the most recent k memories of this role, return all when k=0"""
+    return self.rc.memory.get(k=k)
+```
+
+在上一节 多智能体 中，我们调用 get_memories 为测试员提供完整的历史记录上下文。
+
+```python
+# context = self.get_memories(k=1)[0].content # 获取最近的记忆
+context = self.get_memories() # 获取所有记忆
+```
+
+### 添加记忆
+
+使用 `self.rc.memory.add(msg)` ，其中 `msg` 是 `Message` 类型
+
+建议在定义 `_act` 逻辑时，将 动作的 `Message`输出添加到 `Role` 的记忆中。 `Role` 通常需要记住之前说过或做过的事情，以便采取下一步行动。
+
+## 创建和使用工具
+
+### 定义函数作为工具
+
+**在 `metagpt/tools/libs` 中创建并放置您自己的函数，假设它是 `calculate_factorial.py` ，并添加装饰器 @register_tool 以将其注册为工具。**
+
+> 注意确定`metagpt/tools/libs`的位置，不一定在仓库下。例如 `/opt/python/3.9.7/lib/python3.9/site-packages/metagpt/tools/libs`
+
+```python
+# metagpt/tools/libs/calculate_factorial.py
+import math
+from metagpt.tools.tool_registry import register_tool
+
+# Register tool with the decorator
+@register_tool()
+def calculate_factorial(n):
+    """
+    Calculate the factorial of a non-negative integer.
+    """
+    if n < 0:
+        raise ValueError("Input must be a non-negative integer")
+    return math.factorial(n)
+```
+
+**然后在 `__init__.py` 添加对应工具名（纠正：似乎不加也可以）**
+
+![image-20250116212759952](https://media.opennet.top/i/2025/01/16/xj2365-0.png)
+
+**在 `main.py` 文件中使用 DataInterpreter 与您的自定义工具。**
+
+> Data Interpreter 是一个通过代码解决数据相关问题的智能体。它理解用户需求，制定计划，编写执行代码，并在必要时使用工具。这些能力使其能够应对各种场景。
+>
+> https://docs.deepwisdom.ai/main/en/guide/use_cases/agent/interpreter/intro.html
+
+```python
+# main.py
+import asyncio
+from metagpt.roles.di.data_interpreter import DataInterpreter
+from metagpt.tools.libs import calculate_factorial
+
+async def main(requirement: str):
+   role = DataInterpreter(tools=["calculate_factorial"])    # integrate the tool
+   await role.run(requirement)
+
+if __name__ == "__main__":
+   requirement = "Please calculate the factorial of 5."
+   asyncio.run(main(requirement))
+```
+
+运行结果：
+
+````bash
+/home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/main.py
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ /home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/main.py
+2025-01-16 13:18:08.649 | INFO     | metagpt.const:get_metagpt_package_root:21 - Package root set to /workspaces/MetaGPT-learn
+```json
+[
+    {
+        "task_id": "1",
+        "dependent_task_ids": [],
+        "instruction": "Calculate the factorial of 5",
+        "task_type": "other"
+    }
+]
+```
+2025-01-16 13:18:15.940 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.003 | Max budget: $10.000 | Current cost: $0.003, prompt_tokens: 405, completion_tokens: 45
+2025-01-16 13:18:15.942 | INFO     | metagpt.roles.role:_plan_and_act:489 - ready to take on task task_id='1' dependent_task_ids=[] instruction='Calculate the factorial of 5' task_type='other' code='' result='' is_success=False is_finished=False
+2025-01-16 13:18:15.943 | INFO     | metagpt.tools.tool_recommend:recall_tools:194 - Recalled tools: 
+['calculate_factorial']; Scores: [-1.0986]
+```json
+["calculate_factorial"]
+```
+2025-01-16 13:18:16.696 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.001 | Max budget: $10.000 | Current cost: $0.001, prompt_tokens: 161, completion_tokens: 9
+2025-01-16 13:18:16.697 | INFO     | metagpt.tools.tool_recommend:recommend_tools:100 - Recommended tools: 
+['calculate_factorial']
+2025-01-16 13:18:16.697 | INFO     | metagpt.roles.di.data_interpreter:_write_code:153 - ready to WriteAnalysisCode
+To calculate the factorial of 5, we will use the pre-defined tool `calculate_factorial` as described in the available tools. Let's proceed with the implementation.
+
+```python
+from metagpt/tools/libs/calculate_factorial import calculate_factorial
+
+# Calculate the factorial of 5
+factorial_of_5 = calculate_factorial(5)
+factorial_of_5
+```
+2025-01-16 13:18:18.451 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.003 | Max budget: $10.000 | Current cost: $0.003, prompt_tokens: 370, completion_tokens: 78
+  1 from metagpt/tools/libs/calculate_factorial import calculate_factorial                
+  2                                                                                       
+  3 # Calculate the factorial of 5                                                        
+  4 factorial_of_5 = calculate_factorial(5)                                               
+  5 factorial_of_5                                                                        
+  6                                                                                       
+  Cell In[1], line 1
+    from metagpt/tools/libs/calculate_factorial import calculate_factorial
+                ^
+SyntaxError: invalid syntax
+
+2025-01-16 13:18:20.506 | INFO     | metagpt.roles.di.data_interpreter:_write_code:153 - ready to WriteAnalysisCode
+```python
+from metagpt.tools.libs.calculate_factorial import calculate_factorial
+
+# Calculate the factorial of 5
+factorial_of_5 = calculate_factorial(5)
+factorial_of_5
+```
+2025-01-16 13:18:21.494 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.006 | Max budget: $10.000 | Current cost: $0.003, prompt_tokens: 453, completion_tokens: 44
+  1 from metagpt.tools.libs.calculate_factorial import calculate_factorial                
+  2                                                                                       
+  3 # Calculate the factorial of 5                                                        
+  4 factorial_of_5 = calculate_factorial(5)                                               
+  5 factorial_of_5                                                                        
+  6                                                                                       
+,120
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ 
+````
+
+可以发现它自动纠正了语法错误并执行代码
+
+### 定义类作为工具
+
+**在 `metagpt/tools/libs` 中创建并放置您自己的类，假设它是 `calculator.py` ，并添加装饰器@register_tool 以将其注册为工具。**
+
+```python
+# metagpt/tools/libs/calculator.py
+import math
+from metagpt.tools.tool_registry import register_tool
+
+# 使用装饰器注册工具
+# 标签 “math ”用于对工具进行分类，include_functions 列表指定了要包含的函数，这使得 `DataInterpreter` 可以选择并理解工具。
+@register_tool(tags=["math"], include_functions=["__init__", "add", "subtract", "multiply", "divide", "factorial"])
+class Calculator:
+   """
+   A simple calculator tool that performs basic arithmetic operations and calculates factorials.
+   """
+
+   @staticmethod
+   def add(a, b):
+       """
+       Calculate the sum of two numbers.
+       """
+       return a + b
+
+   @staticmethod
+   def subtract(a, b):
+       """
+       Calculate the difference of two numbers.
+       """
+       return a - b
+
+   @staticmethod
+   def multiply(a, b):
+       """
+       Calculate the product of two numbers.
+       """
+       return a * b
+
+   @staticmethod
+   def divide(a, b):
+       """
+       Calculate the quotient of two numbers.
+       """
+       if b == 0:
+           return "Error: Division by zero"
+       else:
+           return a / b
+
+   @staticmethod
+   def factorial(n):
+       """
+       Calculate the factorial of a non-negative integer.
+       """
+       if n < 0:
+           raise ValueError("Input must be a non-negative integer")
+       return math.factorial(n)
+```
+
+**在 `main.py` 中使用 DataInterpreter 和自定义工具**
+
+```python
+# main.py
+import asyncio
+from metagpt.roles.di.data_interpreter import DataInterpreter
+from metagpt.tools.libs import calculator
+
+async def main(requirement: str):
+    role = DataInterpreter(tools=["Calculator"]) # integrate the tool
+    await role.run(requirement)
+
+if __name__ == "__main__":
+    requirement = "Please calculate 5 plus 3 and then calculate the factorial of 5."
+    asyncio.run(main(requirement))
+```
+
+执行结果
+
+````bash
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ /home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/examples/tool_use/main.py
+2025-01-16 13:35:49.613 | INFO     | metagpt.const:get_metagpt_package_root:21 - Package root set to /workspaces/MetaGPT-learn
+```json
+[
+    {
+        "task_id": "1",
+        "dependent_task_ids": [],
+        "instruction": "Calculate 5 plus 3",
+        "task_type": "other"
+    },
+    {
+        "task_id": "2",
+        "dependent_task_ids": [],
+        "instruction": "Calculate the factorial of 5",
+        "task_type": "other"
+    }
+]
+```
+2025-01-16 13:35:56.287 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.003 | Max budget: $10.000 | Current cost: $0.003, prompt_tokens: 413, completion_tokens: 84
+2025-01-16 13:35:56.288 | INFO     | metagpt.roles.role:_plan_and_act:489 - ready to take on task task_id='1' dependent_task_ids=[] instruction='Calculate 5 plus 3' task_type='other' code='' result='' is_success=False is_finished=False
+2025-01-16 13:35:56.289 | INFO     | metagpt.tools.tool_recommend:recall_tools:194 - Recalled tools: 
+['Calculator']; Scores: [0.0]
+```json
+["Calculator"]
+```
+2025-01-16 13:35:56.748 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.001 | Max budget: $10.000 | Current cost: $0.001, prompt_tokens: 164, completion_tokens: 7
+2025-01-16 13:35:56.749 | INFO     | metagpt.tools.tool_recommend:recommend_tools:100 - Recommended tools: 
+['Calculator']
+2025-01-16 13:35:56.749 | INFO     | metagpt.roles.di.data_interpreter:_write_code:153 - ready to WriteAnalysisCode
+```python
+from metagpt.tools.libs.calculator import Calculator
+
+# Calculate 5 plus 3
+result_addition = Calculator.add(5, 3)
+result_addition
+```
+2025-01-16 13:35:57.724 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.006 | Max budget: $10.000 | Current cost: $0.006, prompt_tokens: 1136, completion_tokens: 39
+  1 from metagpt.tools.libs.calculator import Calculator                                  
+  2                                                                                       
+  3 # Calculate 5 plus 3                                                                  
+  4 result_addition = Calculator.add(5, 3)                                                
+  5 result_addition                                                                       
+  6                                                                                       
+,8
+2025-01-16 13:36:01.733 | INFO     | metagpt.roles.role:_plan_and_act:489 - ready to take on task task_id='2' dependent_task_ids=[] instruction='Calculate the factorial of 5' task_type='other' code='' result='' is_success=False is_finished=False
+2025-01-16 13:36:01.734 | INFO     | metagpt.tools.tool_recommend:recall_tools:194 - Recalled tools: 
+['Calculator']; Scores: [0.0]
+```json
+["Calculator"]
+```
+2025-01-16 13:36:02.275 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.001 | Max budget: $10.000 | Current cost: $0.001, prompt_tokens: 164, completion_tokens: 7
+2025-01-16 13:36:02.276 | INFO     | metagpt.tools.tool_recommend:recommend_tools:100 - Recommended tools: 
+['Calculator']
+2025-01-16 13:36:02.276 | INFO     | metagpt.roles.di.data_interpreter:_write_code:153 - ready to WriteAnalysisCode
+```python
+# Calculate the factorial of 5 using the Calculator tool
+result_factorial = Calculator.factorial(5)
+result_factorial
+```
+2025-01-16 13:36:04.128 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.013 | Max budget: $10.000 | Current cost: $0.006, prompt_tokens: 1166, completion_tokens: 30
+  1 # Calculate the factorial of 5 using the Calculator tool                              
+  2 result_factorial = Calculator.factorial(5)                                            
+  3 result_factorial                                                                      
+  4                                                                                       
+120
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ 
+````
+
+可发现 DataInterpreter 将其分解为 2 个任务，算加法再算阶乘
+
+![image-20250116214053509](https://media.opennet.top/i/2025/01/16/xqr4co-0.png)
+
+![image-20250116214109969](https://media.opennet.top/i/2025/01/16/xqujyr-0.png)
+
+![image-20250116214124052](https://media.opennet.top/i/2025/01/16/xr6cmo-0.png)
+
+## 人类参与
+
+人类可以自己承担Role
+
+重用 多智能体 章节的示例，只需要把 `team.hire` 中设置 `is_human=True`
+
+```python
+team.hire(
+    [
+        SimpleCoder(),
+        SimpleTester(),
+        # SimpleReviewer(), # the original line
+        SimpleReviewer(is_human=True), # change to this line
+    ]
+)
+```
+
+运行时人类将作为 `SimpleReviewer` ，轮到 `SimpleReviewer` 工作时将要求人类输入。
+
+![image-20250117105118576](https://media.opennet.top/i/2025/01/17/fpxa5v-0.png)
+
+## 为 Role 或 Action 自定义 LLM
+
+定义配置：使用默认配置或从 `~/.metagpt` 目录自定义配置。
+
+分配配置：将特定的LLM配置分配给Action和Role。**配置的优先级如下：Action配置 > Role配置 > 全局配置（config2.yaml 中的配置）。**
+
+团队互动：创建一个具有环境的团队并开始互动。
+
+### 示例
+
+考虑美国大选的直播环境。我们将创建三个角色：A、B 和 C。A 和 B 是两位候选人，C 是一名选民。
+
+```python
+from metagpt.config2 import Config
+from metagpt.roles import Role
+from metagpt.actions import Action
+import asyncio
+from metagpt.environment import Environment
+from metagpt.team import Team
+
+
+# gpt4o = Config.default() # 使用默认模型
+gpt4 = Config.from_home("gpt-4o.yaml")  # ~/.metagpt/gpt-4o.yaml，使用来自文件的配置
+gpt4t = Config.default()
+gpt4t.llm.model = "gpt-4-turbo"  # 修改模型为 "gpt-4-turbo"
+gpt35 = Config.default()
+gpt35.llm.model = "gpt-3.5-turbo"  # 修改模型为 "gpt-3.5-turbo"
+
+# 创建3个Action，其中a1的模型指定为gpt4t
+a1 = Action(config=gpt4t, name="Say",
+            instruction="Say your opinion with emotion and don't repeat it")
+a2 = Action(
+    name="Say", instruction="Say your opinion with emotion and don't repeat it")
+a3 = Action(name="Vote",
+            instruction="Vote for the candidate, and say why you vote for him/her")
+
+# 创建3个Role. 代表 "民主党候选人," "共和党候选人," 和 "选民".
+# 尽管A在Role配置中设置为使用gpt4，但由于Action配置的设置，它将使用带有模型gpt4的a1的配置。
+A = Role(name="A", profile="Democratic candidate",
+         goal="Win the election", actions=[a1], watch=[a2], config=gpt4)
+# 由于B在Role配置中设置为使用gpt35，且a2无Action配置，因此B和a2都会使用Role配置，即gpt35。
+B = Role(name="B", profile="Republican candidate",
+         goal="Win the election", actions=[a2], watch=[a1], config=gpt35)
+# 由于C没有设置任何配置，且a3也没有设置配置，因此C和a3都会使用全局配置，即gpt4o配置。
+C = Role(name="C", profile="Voter", goal="Vote for the candidate",
+         actions=[a3], watch=[a1, a2])
+
+# 创建一个被描述为“美国大选现场直播”的环境。
+env = Environment(desc="US election live broadcast")
+team = Team(investment=10.0, env=env, roles=[A, B, C])
+# 运行team，观察他们之间的协作。
+asyncio.run(team.run(
+    idea="Topic: climate change. Under 80 words per message.", send_to="A", n_round=3))
+# await team.run(idea="Topic: climate change. Under 80 words per message.", send_to="A", n_round=3) # 若在Jupyter Notebook中运行
+```
+
+运行结果：
+
+```bash
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ /home/codespace/.python/current/bin/python /workspaces/MetaGPT-learn/examples/custom_llm.py
+2025-01-17 03:17:43.439 | INFO     | metagpt.const:get_metagpt_package_root:21 - Package root set to /workspaces/MetaGPT-learn
+2025-01-17 03:17:47.392 | INFO     | metagpt.roles.role:_act:403 - A(Democratic candidate): to do Action(Say)
+Climate change is an urgent crisis that demands immediate action. We are witnessing devastating impacts on our environment, from raging wildfires to catastrophic hurricanes. It's our responsibility to protect our planet for future generations. We need bold policies to reduce carbon emissions and invest in renewable energy. This is not just an environmental issue; it's a matter of justice for communities disproportionately affected by climate disasters. We must act now, with conviction and determination, to ensure a sustainable future.
+2025-01-17 03:17:50.651 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.004 | Max budget: $10.000 | Current cost: $0.004, prompt_tokens: 84, completion_tokens: 91
+2025-01-17 03:17:50.653 | INFO     | metagpt.roles.role:_act:403 - B(Republican candidate): to do Action(Say)
+2025-01-17 03:17:50.661 | INFO     | metagpt.roles.role:_act:403 - C(Voter): to do Action(Vote)
+B:I vote As a Republican candidate for the, I believe in protecting our environment and addressing climate change in a responsible manner. We must Democratic candidate prioritize innovation and market-based solutions to reduce. Climate emissions while supporting economic growth. It's crucial to strike change is a balance between environmental indeed a protection and economic prosperity for the benefit of all Americans critical issue. Let's work together to find practical that affects and effective solutions for us all, and a sustainable the candidate's commitment future.
+2025-01-17 03:17:51.598 | INFO     | metagpt.utils.token_counter:count_input_tokens:433 - Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0125.
+2025-01-17 03:17:51.600 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.000 | Max budget: $10.000 | Current cost: $0.000, prompt_tokens: 167, completion_tokens: 73
+ to addressing it with bold policies and investments in renewable energy is crucial. Protecting our planet and ensuring a sustainable future is a responsibility we owe to future generations, and I support the candidate's vision for environmental justice and action.
+2025-01-17 03:17:53.031 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.002 | Max budget: $10.000 | Current cost: $0.002, prompt_tokens: 170, completion_tokens: 69
+2025-01-17 03:17:53.035 | INFO     | metagpt.roles.role:_act:403 - A(Democratic candidate): to do Action(Say)
+2025-01-17 03:17:53.049 | INFO     | metagpt.roles.role:_act:403 - B(Republican candidate): to do Action(Say)
+2025-01-17 03:17:53.062 | INFO     | metagpt.roles.role:_act:403 - C(Voter): to do Action(Vote)
+B: Climate change is a pressing issue that requires thoughtful solutions. We must prioritize innovation and market-based approaches to protect our environment while fostering economic growth. Let's work together to find practicalI vote for the and effective strategies for a sustainable future.
+2025-01-17 03:17:53.604 | INFO     | metagpt.utils.token_counter:count_input_tokens:433 - Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0125.
+2025-01-17 03:17:53.605 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.003 | Max budget: $10.000 | Current cost: $0.001, prompt_tokens: 322, completion_tokens: 45
+ Democratic candidate. The urgency of addressing climate change cannot be overstated, and the Democratic candidate's commitment to implementing bold policies and investing in renewable energy aligns with my values. Protecting our planet and ensuringAbsolutely, the urgency to act on climate a sustainable future is change cannot be overst essential, and Iated. believe that the Democratic candidate's Our communities approach to environmental justice and action is the right path forward.
+2025-01-17 03:17:54.830 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.006 | Max budget: $10.000 | Current cost: $0.003, prompt_tokens: 324, completion_tokens: 70
+, especially those most vulnerable, are already facing the dire consequences of inaction. We need a comprehensive approach that not only addresses the environmental impact but also ensures economic and social justice. Our policies will create jobs, build resilient infrastructure, and promote clean energy. This is about securing a livable world for our children and all future generations. We must be bold and decisive. It's our moral imperative to act now.
+2025-01-17 03:17:59.590 | INFO     | metagpt.utils.cost_manager:update_cost:57 - Total running cost: $0.010 | Max budget: $10.000 | Current cost: $0.006, prompt_tokens: 338, completion_tokens: 99
+@chen2438 ➜ /workspaces/MetaGPT-learn (main) $ 
+```
 
