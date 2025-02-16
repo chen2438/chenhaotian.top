@@ -5,7 +5,7 @@ categories:
 date: 2025-01-17
 slug: metagpt
 title: MetaGPT 项目使用记录
-updated: 
+updated: 2025-02-12
 tags: 
 - ai
 - metagpt
@@ -23,6 +23,8 @@ copyright: false
 ## 在 Codespaces 中安装
 
 > 如果在本地安装（使用`pip install metagpt` ）,可能会出现 `TypeError: AsyncClient.__init__() got an unexpected keyword argument 'proxies'`，此时使用 `pip uninstall metagpt` 卸载后，使用`pip install git+https://github.com/geekan/MetaGPT` 安装最新版本即可解决
+>
+> 如果仍然出现错误，有可能是MetaGPT的依赖更新了，例如安装`volcengine-python-sdk-1.0.121`而不是`volcengine-python-sdk-1.0.123`
 
 将 https://github.com/geekan/MetaGPT fork 一份，然后创建Codespace
 
