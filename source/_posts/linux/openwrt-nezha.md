@@ -15,6 +15,8 @@ copyright: false
 
 # OpenWRT 安装哪吒监控
 
+> 注意：本文仅适用于哪吒监控v0，不适用于新版哪吒监控
+
 在 https://github.com/naiba/nezha/releases 下载对应架构的 `zip` 包，软路由通常是 `nezha-agent_linux_arm64.zip`
 
 解压后把二进制文件放入`/root`
