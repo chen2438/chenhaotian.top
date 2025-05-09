@@ -18,6 +18,8 @@ copyright: true
 
 IP 质量非常好，解锁优美；9950X CPU，单核6000分
 
+**风险提示**：https://www.nodeseek.com/post-334911-1
+
 官网 AFF：https://www.bagevm.com/aff.php?aff=519
 
 ## 规格
