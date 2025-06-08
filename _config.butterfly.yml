@@ -907,13 +907,18 @@ css_prefix: true
 # Inject
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
+# inject:
+#   head:
+#     - <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.css">
+#   bottom:
+#     - <script>let tianliGPT_postSelector = '\#post \#article-container'; let tianliGPT_key = '6gVFpD0GfAq'; let tianliGPT_wordLimit = 5000; let tianliGPT_typingAnimate = true;</script>
+#     - <script src="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.min.js"></script>
 inject:
   head:
-    - <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.css">
+    - <link rel="stylesheet" href="https://ai.tianli0.top/static/public/tianli_gpt.min.css">
   bottom:
-    - <script>let tianliGPT_postSelector = '\#post \#article-container'; let tianliGPT_key = '6gVFpD0GfAq'; let tianliGPT_wordLimit = 5000; let tianliGPT_typingAnimate = true;</script>
-    - <script src="https://cdn1.tianli0.top/gh/zhheo/Post-Abstract-AI@0.14/tianli_gpt.min.js"></script>
-
+    - <script>let tianliGPT_postSelector = '\#post \#article-container';let tianliGPT_key = '6gVFpD0GfAq';</script>
+    - <script src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
 # CDN
 # Don't modify the following settings unless you know how they work
 # 非必要請不要修改
