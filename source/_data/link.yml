@@ -1,10 +1,10 @@
 - class_name: 友情链接
   class_desc: 那些人，那些事
   link_list:
-    - name: GiftHub
-      link: https://gifthub.cn/
-      avatar: https://gifthub.cn/upload/Logo1.svg
-      descr: 致力分享学习中的好东西
+    - name: Rokiy
+      link: https://blog.rokiy.com/
+      avatar: https://resource.rokiy.com/image/2024/10/6bc6ab82850eee2221875265ef6b5621.jpg
+      descr: 不期修古,不法常可
     - name: zty的随手记
       link: https://zty.ink/
       avatar: https://zty.ink/colorduck.svg
