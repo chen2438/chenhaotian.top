@@ -14,7 +14,7 @@ npm install --registry=https://registry.npmmirror.com/
 hexo generate
 
 rm -rf ../chenhaotian.top/
-mkdir -p ../chenhaotian.top/piblic/
+# mkdir -p ../chenhaotian.top/public/
 cp -r public/ ../chenhaotian.top/public/
 
 cd /var/www/html
