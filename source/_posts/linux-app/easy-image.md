@@ -1,3 +1,5 @@
+【未完成】
+
 ---
 description: 发布于 2023-07-17
 categories:
@@ -18,27 +20,27 @@ copyright: true
 
 如果不希望安装宝塔面板或其国际版 aapanel（尽管宝塔面板可以在安装后关闭），那么可以参考这篇文章。
 
-**本文安装环境为 Debian 11, 在 Ubuntu 20.04 测试通过**
+**本文安装环境为 Debian 12**
 
 ## 安装 PHP
 
-安装 PHP 7.4
+安装 PHP 8.2
 
 ```bash
 apt update -y
-apt install php7.4 php7.4-fpm 
+apt install php8.2 php8.2-fpm
 ```
 
 安装 PHP 拓展
 
 ```bash
-apt install php7.4-fileinfo php7.4-iconv php7.4-zip php7.4-mbstring php7.4-gd
+apt install php8.2-fileinfo php8.2-iconv php8.2-zip php8.2-mbstring php8.2-gd
 ```
 
 配置 PHP
 
 ```bash
-vim /etc/php/7.4/fpm/php.ini
+vim /etc/php/8.2/fpm/php.ini
 ```
 
 查找 `upload_max_filesize` `post_max_size` `memory_limit` ，按需求设置。
@@ -52,7 +54,7 @@ vim /etc/php/7.4/fpm/php.ini
 重启 PHP
 
 ```bash
-systemctl restart php7.4-fpm
+systemctl restart php8.2-fpm
 ```
 
 ## 安装 Nginx
