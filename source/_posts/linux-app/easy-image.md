@@ -1,5 +1,3 @@
-【未完成】
-
 ---
 description: 发布于 2023-07-17
 categories:
@@ -7,7 +5,7 @@ categories:
 date: 2023-07-17
 slug: easy-image
 title: 不使用宝塔面板 安装 EasyImage 简单图床
-updated:
+updated: 2025-12-03
 tags:
 - linux-app
 - easy-image
@@ -107,7 +105,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
     }
 
     location ~ /\.ht {
@@ -166,7 +164,7 @@ certbot renew --dry-run
 - 更改 PHP 和 Nginx 配置文件后记得重启
 
 	```bash
-	systemctl restart php7.4-fpm
+	systemctl restart php8.2-fpm # 7.4
 	systemctl restart nginx
 	```
 
