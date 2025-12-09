@@ -916,6 +916,7 @@ css_prefix: true
 inject:
   head:
     - <link rel="stylesheet" href="https://ai.tianli0.top/static/public/tianli_gpt.min.css">
+    - <script defer src="https://cdn.vercel-insights.com/v1/script.debug.js"></script>
   bottom:
     - <script>let tianliGPT_postSelector = '\#post \#article-container';let tianliGPT_key = '6gVFpD0GfAq';</script>
     - <script src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
