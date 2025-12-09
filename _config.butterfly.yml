@@ -99,7 +99,7 @@ cover:
   suffix: 1
   # suffix 在链接后面加入后缀?spm={随机数} 0是不使用后缀、1是?加随机数；2是&加随机数
   default_cover:
-    - https://chenhaotian.top:3000
+    - /api/random-image
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
   flink: /img/friend_404.gif

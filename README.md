@@ -1,6 +1,19 @@
 # chenhaotian.top
 chenhaotian.top Hexo website.
 
+## 部署方式
+
+### Vercel 部署（推荐）
+
+1. Fork 或导入此仓库到您的 GitHub 账户
+2. 在 [Vercel](https://vercel.com) 导入项目
+3. Vercel 会自动检测 Hexo 项目并进行部署
+4. 部署完成后，访问分配的域名即可
+
+**API 访问地址：** `https://your-domain.vercel.app/api/random-image`
+
+### 传统部署方式
+
 Debian 12, npm 9.2.0, node v18.19.0 测试通过
 
 ```bash
