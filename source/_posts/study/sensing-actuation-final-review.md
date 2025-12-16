@@ -5,7 +5,7 @@ categories:
 date: 2025-12-12
 slug: sensing-actuation-final-review
 title: 传感、执行和能源技术 期末复习
-updated: 
+updated: 2025-12-16
 tags:
 - study
 - bristol
@@ -454,9 +454,9 @@ baud rate is equivalent to the number of bits per second (bps) transferred
 
 | Protocol      | Type                      | Line/Signals                | Speed    | Use case           |
 | ------------- | ------------------------- | --------------------------- | -------- | ------------------ |
-| **UART**      | 异步（Asynchronous）      | TX，RX，GND                 | 中等     | 调试、简单串行通信 |
-| **SPI**       | 同步（Synchronous）       | COPI, CIPI, SCK, CS         | 高       | 高速外设           |
-| **I2C**       | 同步（Synchronous）       | SDA, SCL                    | 低到中等 | 多设备共享总线     |
+| **UART**      | 异步                      | TX，RX，GND                 | 中等     | 调试、简单串行通信 |
+| **SPI**       | 同步                      | COPI, CIPI, SCK, CS         | 高       | 高速外设           |
+| **I2C**       | 同步                      | SDA, SCL                    | 低到中等 | 多设备共享总线     |
 | **CAN**       | 基于消息（Message-based） | CAN High, CAN Low           | 中等     | 汽车、工业网络     |
 | **USB**       | 串行（Serial）            | 差分对（Differential pair） | 低到高   | 外设、电源传输     |
 | **Ethernet**  | 网络（Network）           | 多条线路（Multiple）        | 高       | 局域网 LAN         |
@@ -789,7 +789,7 @@ A highly controlled environment with very low levels of pollutants (dust, airbor
 
 **Top-Down** （自上而下）
 
-Start from bulk material, carve down to nanoscale using lithography & etching.
+Start from bulk material, carve down to nanoscale using **photolithography**, electron beam lithography, and **etching** 
 
 从大块材料开始，通过光刻、刻蚀等方式逐步“雕刻”到纳米尺度。
 
@@ -814,6 +814,8 @@ Cons 缺点: Large-area patterning is difficult. 大面积图案难以实现。
 <img src="https://media.opennet.top/i/2025/11/25/3mmpqr-0.png" alt="image-20251124181938650" style="zoom: 67%;" />
 
 该工艺用于在**基底 (substrate)** 上形成一层 薄的（0.1 – 50 μm）**有机溶液 (organic solution)**的**共形薄膜 (conformal layer)**。例如，在**硅晶圆 (Si wafer)** 上**沉积(coating)** PI（聚酰亚胺）。
+
+> 共形薄膜：均匀覆盖基底表面所有形貌的薄膜层，厚度在三维表面上几乎一致。
 
 溶液首先被倒在**基底 (substrate)** 上（步骤 a），然后样品以很高的速度旋转——通常超过每秒 10 转。离心力将材料铺展开来（步骤 b），多余的材料会被甩到边缘之外。
 
@@ -1046,7 +1048,7 @@ Flexible ion sensor for biochemical detection.
 ​	电导传感器
 
 * **Principle:** Mechanical strain → dimension change → resistance change (ΔR).
-    * 机械应变 → 尺寸变化 → 电阻变化
+    * 机械应变 → 尺寸变化 → 电阻（电导）变化
 
 * **Circuit:** Measured by a Wheatstone bridge → output voltage $\propto$ applied stress.
     * 惠斯通电桥测量 → 输出电压 $\propto$ 施加的应力
@@ -1115,10 +1117,10 @@ $$
 * **Effect:** **Mechanical stress → charge generation** (direct effect).
   Electric field → mechanical strain (converse effect).
   
-  * 机械应力 → 产生电荷（正压电效应）
+  * 机械应力 → 产生**电荷**（正压电效应）
     电场 → 机械应变（逆压电效应）
   
-* **Voltage relation:** $V = g t \sigma$ (g: voltage coefficient).
+* **Voltage relation:** $V = g\ t\ \sigma$ 
 
     * 压电效应公式：电压 = 电压系数 * 厚度 * 应力
     * **V**：在压电片两端产生的电压 (Volt)
@@ -1159,13 +1161,13 @@ $$
     * 应力不仅与应变成正比（胡克定律部分），还会受到电场的影响（压电效应的反作用）
 
 * 当 **E = 0** 时：
-     Eq 3: $\sigma = cS$ （应力 = 刚度 * 应变），即 **胡克定律 Hooke’s law**。
+     Eq 3: $\sigma = cS$ （应力 = 刚度 * **应变**），即 **胡克定律 Hooke’s law**。
 
-     Eq 4: $D = eS$（电通 = 压电 * 应变），单纯应变也能产生极化，是 **直接压电效应 Direct piezoelectric effect**
+     Eq 4: $D = eS$（电通 = 压电 * **应变**），应变产生极化，是 **（直接）压电效应 Direct piezoelectric effect**
     
 * 当 **S = 0** 时：
   
-    - Eq 3: $\sigma = -eE$（应力 = - 压电 * 电场），是 **反压电效应 converse piezoelectric effect**（电场导致应力）。
+    - Eq 3: $\sigma = -eE$（**应力** = - 压电 * 电场），是 **反压电效应 converse piezoelectric effect**（电场导致应力）。
      - Eq 4: $D = \varepsilon_0 E$ （电通 = 介电 * 电场），是 **电介质关系式 dielectric relation**。
     
      当 **E = 0** 时：
@@ -1204,13 +1206,9 @@ The relationship between the dipole moment and the mechanical deformation in a p
 
 ​	磁致伸缩传感器
 
-> 通过非接触的方式来测量一个活动磁铁的绝对位置
->
 > 利用“应变脉冲的传播时间 $\propto$ 距离”来测量位移或位置
 
 * **Principle:** 见 [Mock 11]
-* **Pickup:** Coil or piezoceramic transducer.
-    * **拾音器**：线圈或压电陶瓷换能器
 * **Feature:** Electromechanical coupling modelled as a transformer.
     * 以变压器形式建模的机电耦合
 
@@ -1242,7 +1240,7 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
     1. 产生应变脉冲（机械波）
 5. Travel time of the **strain pulse** to the **pick-up circuit** is **proportional** to the distance the pulse travels. It defines the **position of the movable magnet**.
     1. 应变脉冲到拾取电路的传播时间 与其距离成**比例**。它决定了可移动磁体的位置
-6. The **travel time** can be measured multiple times for accurate prediction of the movable magnet position.
+6. The **travel time** can be **measured multiple times** for accurate prediction of the movable magnet position.
     1. 传播时间可被多次测量，精确预测可移动磁体的位置。
 
 ### [Quiz 2.5]
@@ -1256,11 +1254,11 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
 
 > **Piezoresistive sensors** → 通过机械应变引起电阻变化来工作。
 >
-> **Thermistors** → 温度敏感电阻，依赖温度引起的电阻变化。
+> **Thermistors** → 温度引起电阻变化。
 >
 > **Magnetostrictive sensors** → 利用磁致伸缩效应（磁场 ↔ 材料形变 ↔ 应力/应变），主要检测机械波/振动，而不是电阻变化。
 >
-> **Conductometric sensors** → 检测气体或溶液的电导率变化，本质上也是电阻变化。
+> **Conductometric sensors** → 检测电导率变化，本质上也是电阻变化。
 
 
 ---
@@ -1291,12 +1289,11 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
 - Poison ratio of the piezoresistors
 - None of the above statements is correct.
 
-> 压阻效应（Piezoresistive effect）的本质是：
-> **应力 → 引起压阻条的形状（长度/截面积）和电阻率变化 → 导致电阻变化。**
->
-> 在图中，硅膜片受压会弯曲，放置在应力集中区的压阻条 **会随之被拉伸或压缩**，因此选：
->
-> **Length of the piezoresistors（压阻条的长度）**
+> 压阻效应（Piezoresistive effect）的本质是：**应力 → 压阻条形状变化 → 电阻变化。**
+> 
+>在图中，硅膜片受压会弯曲，放置在应力集中区的压阻条 **会随之被拉伸或压缩**，因此选：
+> 
+>**Length of the piezoresistors（压阻条的长度）**
 
 ---
 
@@ -1327,13 +1324,13 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
 
 ​	共振传感器
 
-- consists: frame, thin **diaphragm**, micro **beam**, **driving electrode**
+- consists: **frame**, thin **diaphragm**, micro **beam**, **driving electrode**
 
-由一个框架、一个**薄膜**和一根悬于腔体上 方的双端夹持**微梁**组成，腔体底部在梁下方设有一个驱动电极。
+由一个**框架**、一个**薄膜**和一根悬于腔体上方的双端夹持**微梁**组成，腔体底部在梁下方设有一个**驱动电极**。
 
 - applying an **AC signal** to the **driving electrode**, then **beam vibrates**
 - vibration sensed by [piezoresistors](#Piezoresistive) 
-- **signal** output is sent to a circuit, then fed back to the **driving electrode** to maintain a **close-loop oscillation**
+- **signal** output is sent to a circuit, then fed back to the **driving electrode** to maintain a **close-loop vibration (oscillation)**
 
 通过向驱动电极施加交流信号使微梁振动。微梁的振动可由压阻传感器检测。信号输出被送入由放大器、检波器、自动增益控制等组成的电路，然后反馈到驱动电极，以在谐振频率下 维持幅值恒定的闭环振荡。
 
@@ -1368,7 +1365,7 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
 - result in changes in the **current of the transistor**: $I_D \propto W$
 
 
- 悬浮栅在横向移动时会改变其覆盖的沟道宽度 $W$。由于漏极电流与 $W$ 成正比 $(I_D \propto W)$，因此通过测量漏极电流的变化即可实现栅极位移的检测。
+ 悬浮栅在横向移动时会改变其覆盖的沟道宽度 $W$。由于漏极电流与 $W$ 成正比 $(I_D \propto W)$，因此通过测量漏极电流的变化即可实现栅极 **位移** 的检测。
 
 
 ---
@@ -1379,21 +1376,21 @@ consists: a **magnetostrictive wire**, a **pickup circiut**, a **movable positio
 
 consists:
 
-- piezoelectric wafer, IDT, reflectors
-- IDTs are used for exciting and detecting the SAW
+- **piezoelectric wafer**, **IDT**, reflectors
+- IDTs are used for exciting and **detecting** the SAW
 
-SAW表面声波器件由压电晶片、互指电极(IDTs)和边缘的反射器组成。IDTs 用于激励以及检测声表面波
+SAW表面声波器件由压电晶片、互指电极(IDTs)和边缘的反射器组成。互指电极用于激励以及检测声表面波
 
 - a harmonic **voltage** is applied to the **electrodes**
 - **stress** induced by a **finger pair** **travels** **along** the surface of the **crystal** in both directions
 - To ensure constructive interference and in-phase stress
--  the **distance** between two neighbouring fingers should be **equal to half the elastic wavelength, $\lambda_R$.**
+-  the **distance** between two **neighbouring fingers** should be **equal to 1/2 elastic wavelength $\lambda_R$.**
 
 如果在电极上施加一个谐波电压 $v = v_0 \exp(j\omega t)$，由一对叉指产生的应力会沿晶体表面向两个方向传播。为了确保相长干涉和应力同相，相邻两根叉指之间的距离应等于弹性波长的一半，即 $\lambda_R$ 的一半。
 
 * **Principle:** Convert electrical energy ↔ acoustic waves (SAW devices).
     * 将电能转换为声波（SAW 器件）
-* **Condition:** Finger spacing = ½ elastic wavelength $λ_R$.
+* **Condition:** Finger distance = ½ elastic wavelength $λ_R$.
     * 指间距 = ½ 弹性波长 $λ_R$
 * **Applications:** Gas, vapor, strain, chemical detection.
     * 气体、蒸汽、应变、化学检测
@@ -1418,7 +1415,7 @@ SAW表面声波器件由压电晶片、互指电极(IDTs)和边缘的反射器�
 
 ​	温度传感器
 
-* **Contact types:**
+* **Contact types:** 接触式
   * Thermocouples (TC): Seebeck effect.
       * 热电偶 (TC)：塞贝克效应（由两种不同金属在一端连接 → 产生与温度成比例的电压）
   * RTDs (e.g., Pt100): metal resistance ↑ with T.
@@ -1527,25 +1524,24 @@ SAW表面声波器件由压电晶片、互指电极(IDTs)和边缘的反射器�
 
 静电执行器
 
-- **Principle**: Based on capacitor structure. One plate is movable and displacement occurs under applied bias voltage → converts electrical energy to mechanical energy.
-    - 基于电容器结构。其中一块极板可移动，在施加偏压下发生位移→将电能转换为机械能。
+草图：
+
+<img src="https://media.opennet.top/i/2025/12/15/wawqrl-0.png" alt="QNote" style="zoom:50%;" />
+
+- **Principle**: 
+  
+    - applying **AC**  V₁ and V₂ to **fixed plates**
     
-    - 官方答案：
+    - applying **DC** V₀ to **movable comb**
     
-        - applying AC  V₁ and V₂ to fixed plates
-    
-        - applying DC V₀ to movable comb
-    
-        - movable comb move and resonate laterally due to alternating electrostatic force.
+    - **movable comb move** and **resonate** **laterally** due to **alternating electrostatic force**.
     
     
-        对两侧固定板施加交流电V1, V2，对可移动梳齿施加直流电V0。由于交交变静电力，可移动梳齿会横向移动并震动。
+        对两侧固定板施加交流电V1, V2，对可移动梳齿施加直流电V0。由于交变静电力，可移动梳齿会横向移动并震动。
     
 - **Energy Components**:
     - *Electrostatic energy (We)* + *Mechanical energy (Wm)* = Total system energy (Wf).
         - *静电能 (We)* + *机械能 (Wm)* = 系统总能量 (Wf)。
-    - Derived equations link **force, displacement, voltage, and charge**.
-        - 导出的方程将**力、位移、电压和电荷**联系起来。
     
 - **Comb Drive Actuators** **梳状驱动执行器**
     - Equivalent circuit includes: 等效电路
@@ -1554,9 +1550,7 @@ SAW表面声波器件由压电晶片、互指电极(IDTs)和边缘的反射器�
         - **电感 Inductor（$L_m$）**：**质量**（mass）。
         - **电容 capacitor（$C_k=1/k$）**：**刚度**（stiffness）。
         - **电阻 Resistor（$R_m=b$）**：**阻尼**（damping）。
-        - **变压器 Transformer（比值  $\Gamma$）**：**电-机械能相互转换**，。
-    - Electromechanical coupling coefficient Γ = V (dC/dx).
-        - 机电耦合系数Γ=V（dC/dx）。
+        - **变压器 Transformer（比值  $\Gamma$）**：**电-机械能相互转换**。
 
 ![image-20251025133526215](https://media.opennet.top/i/2025/10/25/xnrahy-0.png)
 
@@ -1586,34 +1580,24 @@ Transformer: electrical <=>  mechanical energy
 
 C=1/k: stiffness of  two folded beam spring 两折叠梁的弹簧刚度
 
-inductor: mass 电感器: 质量
+inductor: mass 质量
 
 resistance:  viscous damping 粘性阻尼
 
 ### Electromagnetic
 
-电磁执行器（电生磁）
+电磁执行器（电生磁 吸铁石）
 
-- **Structure**: Coil inductor (N turns) wound on core/yoke. Current (i) generates magnetic flux (Φ) across air gap → force attracts movable plate.
-    - 线圈电感器（N 匝）绕制在磁芯/磁轭上。电流 (i) 产生 穿过气隙的 磁通量 (Φ) → 磁力吸引动片
-- **Materials**: Armature and moving part = ferromagnetic materials.
-    - 电枢和动片 = 铁磁材料
-- **Magnetic Circuit**: Low-reluctance path ensures efficient flux transfer.
-    - **磁路**：低磁阻路径确保高效的磁通传输
-- **Energy Relation**: Stored magnetic energy WM = ½ L(x) i².
-    - 储存的磁能 WM = ½ L(x) i²
-- **Variables**:
-    - i = coil current 线圈电流
-    - μ = permeability of yoke 磁轭磁导率
-    - Ae = effective plate area 有效动片面积
-    - Ψ = electromechanical coupling constant 机电耦合常数
+<img src="https://media.opennet.top/i/2025/12/15/welggk-0.png" alt="QNote" style="zoom:50%;" />
+
+- **Structure**: **Coil** inductor (N turns) **wound** on yoke. **Current** (i) generates magnetic flux/field (Φ) across air gap → force attracts movable plate.
+    - 线圈电感器（N 匝）绕制在磁轭上。电流 (i) 产生 穿过气隙的 磁通量 (Φ) → 磁力吸引动片
 - **Equivalent Circuit**: Includes gyrator, transformer, shunt capacitor, and spring stiffness (k* = k - Ψ²/L0). 
     - 回转器（电压->电流）、变压器（电<->机械）、并联电容器和弹簧刚度 (k* = k - Ψ²/L0)
     - **gyrator : convert Voltage to Current**
     - **capacitor: inductance（电感）$L_0$**
-    - **Capacitor（右上角）: model the mechinical part（教师原句）**
+    - **Capacitor（右上角）: model the mechinical part（教师原句, 应该指stiffness）**
     - **Transformer: conversion of electrical and mechinal** energy
-    - impedance: stiffness （图中未提及）
 
 ![image-20251210212854582](https://media.opennet.top/i/2025/12/11/8qp1v3-0.png)
 
@@ -1628,7 +1612,9 @@ resistance:  viscous damping 粘性阻尼
 
 ### Electrodynamic
 
-​	电动执行器
+​	电动执行器(洛伦兹力)
+
+<img src="https://media.opennet.top/i/2025/12/15/xogj2r-0.png" alt="QNote 2" style="zoom:50%;" />
 
 - **Principle**: 见 [Quiz 3.4]
 
@@ -1638,7 +1624,7 @@ resistance:  viscous damping 粘性阻尼
 
     - > 在电磁学中，**拉普拉斯定律**（Laplace’s Law）说明了 **载流导体在磁场中受到的力**，公式为
         > $$
-        > dF = i \, (dl \times B)
+        > dF = i \, dl \times B
         > $$
 
 - **Equivalent Circuit**: Includes inductance (L0), gyrator, and impedance components.
@@ -1647,11 +1633,14 @@ resistance:  viscous damping 粘性阻尼
         - **gyrator: convert voltage to current(有 coil 就有 gyrator)**
         - **Impedance 阻抗: coil's inductance 电感**
         - **Capacitor(in the output): model the mechanical part**
-        - ![image-20251210212823704](https://media.opennet.top/i/2025/12/11/8qiv4a-0.png)
+    
+
+![image-20251210212823704](https://media.opennet.top/i/2025/12/11/8qiv4a-0.png)
+
+>  GPT认为上图中 **线圈做直线运动，而非旋转运动。**
 
 - **Transduction Factor (Ψ)**: Represents electromechanical conversion efficiency.
-
-    - **转换因子 (Ψ)**：表示机电转换效率。
+- **转换因子 (Ψ)**：表示机电转换效率。
 
 **Applications**: Loudspeakers, vibration systems.
 
@@ -1667,7 +1656,7 @@ Reason for the pole rotation: The permanent magnet create radial induction B acr
 
 简化版：
 
-- **Permanent magnet** create induction **B**. 
+- **Permanent magnet** create magnetic field **B**. 
 - **Coil** sits on a **rotational pole.** 
 - **Current** i **passes** through the **coil**.  
 - each **conductor segment**  **dl** experiences a **Lorentz force**. 
@@ -1677,7 +1666,7 @@ Reason for the pole rotation: The permanent magnet create radial induction B acr
 
 ### Piezoelectric
 
-压电执行器
+压电执行器（逆压电效应）
 
 * **Poling Process**: 
 
@@ -1704,9 +1693,9 @@ Reason for the pole rotation: The permanent magnet create radial induction B acr
 
 * **Equivalent Circuit**: Includes static capacitance (C0), transfer factor (Γ), and spring constant (k).
     * 包含静态电容 (C0)、传递因子 (Γ) 和弹簧常数 (k)
-    * Transformer: convert electrical to mechanical
-    * Capacitor C0: capacitance of the structure
-    * Capacitor(in the output): mechanical stiffness 
+    * **Transformer**: convert electrical to mechanical
+    * **Capacitor C0**: capacitance of the structure
+    * **Capacitor**(in the **output**): mechanical stiffness 
 
 **Applications**: Precision positioning, ultrasonic actuators. 精密定位、超声波执行器。
 
@@ -1724,10 +1713,10 @@ D. None of the above statements is correct.
 
 ### Electrostrictive
 
-​	电致伸缩执行器
+​	电致伸缩执行器（电致伸缩效应）
 
 * **Principle**: 见 [mock 14]
-* **Comparison with Piezoelectricity**:
+* **Comparison with Piezoelectricity**:（不要搞反了）
   * Piezoelectric: **Linear** strain-field relation.
       * 压电效应：应变场与电场呈**线性**关系。
   * Electrostrictive: **Quadratic** relation.
@@ -1744,9 +1733,9 @@ D. None of the above statements is correct.
 - applied E **polarize**  **electrostrictive material**
 -  ions shift away  from  natural  positions
 - generates **strain**
-- Both **E>0** and **E<0** expand thickness of electrostrictive layer
+- Both **E>0** and **E<0** expand **thickness** of electrostrictive layer
 
-​	电场 E 极化电致伸缩材料，离子（ions）偏离，造成应变（strain）。E>0 或 E<0都会延长电致伸缩层的厚度
+​	电场 E 极化电致伸缩材料，离子（ions）偏离，造成应变（strain）。E>0 或 E<0都会延长电致伸缩层的**厚度**
 
 ---
 
@@ -1778,7 +1767,7 @@ The relationship between the force produced and applied field is linear in piezo
 
 简化版：
 
-Piezoelectric materials have **spontaneous polarization** due to **non-centrosymmetric crystal structures**.
+Piezoelectric materials have **spontaneous polarization** due to **crystal structures**.
 
  Electrostrictive materials have **no spontaneous polarization**; their polarization is **induced by the electric field**.
 
@@ -1798,23 +1787,23 @@ In electrostrictive materials, the **strain is quadratic** with the electric fie
 
 磁致伸缩执行器
 
+<img src="https://media.opennet.top/i/2025/12/15/z1rx62-0.png" alt="QNote 3" style="zoom:50%;" />
+
 * **Principle**: Strain generated by applied magnetic field. 施加磁场产生的应变。
-    * consists of E-shaped **core** of iron, **coil**, iron **fixtures**
+    * consists of **E-shaped** **core** of iron, **coil**, iron **fixtures**
     * **coil** is **wound** on the **core**
     * **current** flowing in the **coil**
     * a **close magnetic loop** is constructed
     * Both **positive** and **negative** **magnetizations** cause **positive** **magnetostriction**
-    * produces elongation in the **longitudinal** direction
-    * 由 E 形磁芯、线圈和铁夹具组成。线圈缠绕在磁芯上。线圈通电时，磁芯与夹具在闭合磁路中形成回路。正向和反向磁化都会引起正向磁致伸缩，产生伸长。
+    * produces elongation in the **longitudinal / length** direction
+    * 由 E 形磁芯、线圈和铁夹具组成。线圈缠绕在磁芯上。线圈通电时，磁芯与夹具在闭合磁路中形成回路。正向和反向磁化都会引起正向磁致伸缩，产生**长度**方向伸长。
     * ![image-20251210221657752](https://media.opennet.top/i/2025/12/11/a7cli0-0.png)
 
 
 * **Equivalent Circuit**:
   * gyrator: covert current to voltage
-  * L0: input impedance
-  * Capacitor: model the structure
-  * Coil inductance (L0). 线圈电感 (L0)。
-  * 
+  * L0: input impedance(Coil inductance)
+  * Capacitor: model the mechanical structure
 
 ![image-20251025144748704](https://media.opennet.top/i/2025/10/25/zikffu-0.png)
 
@@ -1830,11 +1819,11 @@ In electrostrictive materials, the **strain is quadratic** with the electric fie
     
 * **Types**:
 
-  1. **Bimorph actuators**: Two materials with different CTE expand differently → bending displacement.
+  1. **Bimorph actuators**: Two materials with different CTE expand differently → **bending displacement**.
       1. **双压电晶片执行器**：两种热膨胀系数不同的材料以不同的方式膨胀 → 弯曲位移。
-  2. **Chevron (V-shape) actuators**: Geometry-driven displacement; symmetric heating produces linear motion.
+  2. **Chevron (V-shape) actuators**: Geometry-driven displacement; symmetric heating produces l**inear motion**.
       1. **V 形执行器**：几何驱动位移；对称加热产生线性运动。
-  3. **Hot-arm/Cold-arm actuators**: Different resistances → rotation towards cold arm.
+  3. **Hot-arm/Cold-arm actuators**: Different resistances → **rotation** towards cold arm.
       1. **热臂/冷臂执行器**：不同的电阻 → 朝向冷臂旋转。
   
   ![image-20251210223726104](https://media.opennet.top/i/2025/12/11/ajfjsd-0.png)
@@ -1847,7 +1836,7 @@ In electrostrictive materials, the **strain is quadratic** with the electric fie
 >
 > 静电 高效
 >
-> 电磁 形变高
+> 电磁 形变高（吸铁石）
 >
 > 压电 高效 快
 >
@@ -1881,9 +1870,7 @@ Electrostatic actuator: High  efficiency
 
 Thermal actuator: Minimal  speed
 
-Piezoelectric actuator: Low fractional  stroke
-
-![image-20251105175814486](https://media.opennet.top/i/2025/11/06/2m6gzj-0.png)
+Piezoelectric actuator: Low fractional stroke
 
 > Fractional stroke = 位移占最大行程的比例，用来衡量致动器运动是否在线性、安全的工作范围内。
 
@@ -1899,9 +1886,7 @@ Piezoelectric actuator: Low fractional  stroke
   * Magnetostrictive: Magnetic field → elongation.
   * Electrothermal: Heating → expansion.
 * Each actuator type has unique trade-offs in strain, force, energy efficiency, and environmental tolerance.
-
 * **驱动机制**：
-
 * 静电驱动：电压 → 位移。
 * 电磁驱动：电流 → 磁场 → 运动。
 * 电动力驱动：洛伦兹力。
@@ -1909,7 +1894,6 @@ Piezoelectric actuator: Low fractional  stroke
 * 电致伸缩驱动：类似的二次关系。
 * 磁致伸缩驱动：磁场 → 伸长。
 * 电热驱动：加热 → 膨胀。
-* 每种类型的执行器在应变、力、能量效率和环境耐受性方面都有独特的权衡。
 
 ## 7 Packaging
 
@@ -1948,11 +1932,11 @@ Key considerations: reliability (affected by packaging stresses and moisture ing
 ![image-20251106115544669](https://media.opennet.top/i/2025/11/06/wc8dyr-0.png)
 
 1. **Zero-Level Packaging** 零级封装
-    - silicon wafer -> **bare dies**.
+    - **silicon wafer** -> **bare dies**.
     - 硅片 -> 裸芯片
 2. **First-Level Packaging**
     - Die **glued** onto a **chip carrier**. 裸片**粘接**到**芯片载体**上
-    - **Wire bonding** 金丝键合
+    - **Wire bonding** **金丝键合/引线键合**
     - encapsulated using **epoxy molding** 环氧树脂封装
 3. **Second-Level Packaging**
     - The packaged IC is soldered onto a **PCB**. 芯片焊接到PCB
@@ -2082,7 +2066,7 @@ Stress-relieving flexible regions may be incorporated to isolate sensor mechanic
 
 ### What is a Battery
 
-A **battery** converts **chemical energy into electrical energy** and vice versa.
+A **battery** converts **chemical energy into electrical energy** and **vice versa (if rechargeable)**.
 
 It **consists** of one or more **cells(电芯)**, each with:
 
@@ -2118,8 +2102,8 @@ Rechargeable: Lithium – Ion (Li – Ion) Batteries, Lithium Cobalt Oxide (LCO)
 - **负极 Anode:** carbon 碳（graphit 石墨）
 - **Electrolyte:** 含有Li ion
 - **Separator:** Prevents short-circuit, allows ion transport.
-- **Advantages:** High number of charge/discharge cycles 充放电循环次数多
-- **Disadvantages:** Expensive, risk of fire/overcharge 贵，火灾隐患
+- **Advantages:** High number of charge/discharge **cycles** 充放电循环次数多
+- **Disadvantages:** **Expensive**, risk of **fire**/overcharge 贵，火灾隐患
 
 ### [Mock 15.a]
 
@@ -2138,7 +2122,7 @@ Rechargeable: Lithium – Ion (Li – Ion) Batteries, Lithium Cobalt Oxide (LCO)
 
 **principle  of operation**: 
 
-- Discharge: Li ion move from anode to cathode through electrolyte
+- Discharge: Li ion move from anode to cathode through **electrolyte**
 - electrons flow though external circuit, providing power
 - Charge: the reaction reverse
 
@@ -2150,10 +2134,10 @@ Rechargeable: Lithium – Ion (Li – Ion) Batteries, Lithium Cobalt Oxide (LCO)
 
 Lithium Cobalt Oxide (LCO) 钴酸锂
 
-与 Li-ion 类似。正极 cathode由 $LiCoO_2$ 构成（也是锂金属氧化物）
+与 Li-ion 类似。**正极** cathode由 $LiCoO_2$ 构成（钴酸锂 也是锂金属氧化物）
 
 - **High energy density**, used in consumer electronics.
-- **Disadvantages:** Short lifespan, safety issues, cobalt scarcity.
+- **Disadvantages:** **Short lifespan**, **safety** issues, cobalt scarcity.
 
 <img src="https://media.opennet.top/i/2025/12/07/xalexx-0.png" alt="image-20251207121313905" style="zoom: 50%;" />
 
@@ -2161,10 +2145,12 @@ Lithium Cobalt Oxide (LCO) 钴酸锂
 
 Lithium Manganese Oxide (LMO) 锰酸锂
 
-正极由锰酸锂 (LiMn2O4) 制成
+**正极**由锰酸锂 (LiMn₂O₄) 制成
+
+> LiMn₂O₄ 中 Mn 为混合价：Mn³⁺ 与 Mn⁴⁺ 各一半
 
 - Used in **medical devices and power tools**.
-- **Advantages:** High thermal stability, low cost
+- **Advantages:** High **thermal stability**, **low cost**
 - **Disadvantages:** Manganese dissolution(溶解) shortens lifespan.
 
 <img src="https://media.opennet.top/i/2025/12/07/xj2px2-0.png" alt="image-20251207122738992" style="zoom:50%;" />
@@ -2199,7 +2185,7 @@ Lithium Iron Phosphate (LiFePO₄) 磷酸铁锂
 
 Lithium–Polymer (LiPo) 锂聚合物
 
-- **Solid polymer electrolyte** in aluminum pouch. 铝箔袋 装 **固体聚合物**电解质
+- **Solid polymer electrolyte** in aluminum pouch. 铝箔袋 装 **固体聚合物** **电解质**
 - **Advantages:** Flexible, lightweight
 - **Disadvantages:** Same overcharge/heat issues as Li-ion.
 
@@ -2209,12 +2195,10 @@ Lithium–Polymer (LiPo) 锂聚合物
 
 氧化还原液流
 
-**components**
-
-- 2 external tanks: liquid electrolyte solutions
-- Separated by a membrane
+- 2 liquid **electrolyte** **solutions** are stored in external **tanks**
+- Separated by a **membrane**
 - pumped through a cell stack to undergo redox reactions
-- releasing electrons and generating electricity
+- releasing electrons, generating electricity
 
 被膜（membrane）分隔的两种液态电解质（electrolyte）溶液被储存在外部罐（tanks）中，并被泵入（pumped through）电池堆(stack)中进行氧化还原反应（redox reactions），释放电子（electrons）并产生电能
 
@@ -2240,9 +2224,11 @@ Solid-State Batteries 固态电池
 Comprise:
 
 - **PbO₂** **positive** plate, **Pb** **negative** plate
-- immersed in **H₂SO₄** eletrolyte solution
+- immersed in **H₂SO₄** electrolyte solution
 
 由 PbO₂ 正极板和 Pb 负极板组成，浸入**H₂SO₄电解液**中
+
+> GPT 认为放电时 Pb 在 anode
 
 Discharge:
 
@@ -2263,7 +2249,6 @@ $$
 $$
 充电过程：PbO₂ 和 H₂O 被转化回 PbO₂、Pb、H₂SO₄。
 
-- **PbO₂ cathode**, **Pb anode**, **H₂SO₄ electrolyte**.
 - **Advantages:** Cost-effective, reliable
 - **Disadvantages:** Low energy density, sulphation 硫酸化.
 
@@ -2276,21 +2261,30 @@ Nickel–Metal Hydride (NiMH) 镍氢
 comprise:
 
 - Cathode: Ni(OH)₂ 
-- Anode: metal alloy capable of forming hydrides
+- Anode: **metal alloy** capable of forming hydrides
 
 由 Ni(OH)₂ 制成的正极 和 能形成氢化物(hydrides) 的金属合金负极组成。
 
-Discharging operation: the nickel hydroxide at the cathode oxidises to nickel oxyhydroxide and releases electrons. The metal alloy at the anode reacts with hydroxide ions to form a metal hydride.
+> 注意：以下Discharging实际上是充电过程，怀疑讲义是错的
+>
+> 这里按照讲义说法编写，请注意分辨
+>
+> 实际上，放电时Cathode的NiO(OH)被还原为Ni(OH)₂
+>
+> 考试时应当按照讲义，而不是真实情况来作答
+
+![image-20251215211043989](https://media.opennet.top/i/2025/12/16/8fwxft-0.png)
+
+Discharging operation:  **Ni(OH)₂**  at the cathode **oxidises** to **NiOOH** and releases **electrons**. The **metal alloy** at the anode reacts with hydroxide ions to form a metal hydride.
 $$
 \text{Ni(OH)}_{2} + \text{Metal alloy} \rightarrow \text{NiOOH} + \text{Metal Hydride}
 $$
-**放电**：正极的 Ni(OH)₂ 氧化成 NiOOH 并释放 电子。负极的金属合金与 OH⁻ 反应形成金属氢化物。
+**放电**：正极的 Ni(OH)₂ 氧化成 NiOOH（羟基氧化镍/氢氧化氧镍） 并释放 电子。负极的金属合金与 OH⁻ 反应形成金属氢化物。
 
 Charging operation: these reactions reverse.
 
 **充电：** 这些反应会逆向进行。
 
-- **Positive:** Ni(OH)₂, **Negative:** Metal hydride alloy.
 - **Advantages:** High energy density, low memory effect 记忆效应”更低
 - **Disadvantages:** High self-discharge rate.
 
@@ -2300,7 +2294,7 @@ Charging operation: these reactions reverse.
 
 碱性电池  **Non-rechargeable.**
 
-- Cathod: **MnO₂**
+- Cathode: **MnO₂**
 - Anode: **Zn**
 - alkaline Electrolyte (**KOH**)
 
@@ -2308,7 +2302,7 @@ Charging operation: these reactions reverse.
 
 Discharge: 
 
-- Zn -> ZnO, releasing electrons.
+- **Zn** -> **ZnO**, releasing electrons.
 - **MnO₂** is reduced, consuming electrons.
 - flow of electrons from anode to cathode produces electrical power
 
@@ -2398,13 +2392,13 @@ Used to **evaluate and compare** batteries for specific applications by **quanti
 **Steps:**
 
 1. Define objective (applications, batteries).
-2. Select battery types (e.g., Li-ion, LiFePO₄, NiMH).
-3. Define evaluation criteria.
-4. Assess criteria for each battery. 评估每种电池的评估标准
-5. Normalize data (0–1 scale). 数据归一化
-6. Assign weights per application (Σw = 1). 分配权重
-7. Compute weighted scores. 计算加权得分
-8. Scale to 0–100 range.
+2. Select battery **types** (e.g., Li-ion, LiFePO₄, NiMH).
+3. Define evaluation **criteria**.
+4. **Assess** criteria for each battery. 评估每种电池的评估标准
+5. **Normalize** data (0–1 scale). 数据归一化
+6. Assign **weights** per application (Σw = 1). 分配权重
+7. Compute weighted **scores**. 计算加权得分
+8. **Scale** to 0–100 range.
 9. Construct and interpret matrix. 构建并解释矩阵
 
 **Key Formulas**
@@ -2436,7 +2430,7 @@ Used to **evaluate and compare** batteries for specific applications by **quanti
 
 ### Limits of Batterries
 
-**leakage / Self-discharge** 泄露/自放电 → batteries deplete when idle.
+**leakage / Self-discharge** 泄露/自放电 → batteries deplete during inactivity.
 
 **Environmental constraints** 受限于环境 → performance degrades in harsh conditions
 
@@ -2478,11 +2472,11 @@ Used to **evaluate and compare** batteries for specific applications by **quanti
 
 EH(Engergy Harvestor)
 
-- Economical, simple, sustainable fabrication. 便宜 简单 可持续
-- Can use biodegradable / biocompatible materials. 生物兼容
-- Lower maintenance, Lower carbon footprint. 更少维护、碳排放
-- Integrates well with wireless communication. 与无线通信集成
-- Hybrid EH → combine multiple sources to improve reliability. 混合能量收集
+- **Economical**, simple, **sustainable** **fabrication**. 经济 简单 可持续 **制造**
+- Can use biodegradable / **biocompatible** **materials**. 生物相容 **材料**
+- **Lower maintenance**, Lower carbon footprint. 更少维护、碳排放
+- **Integrates** well with **wireless** **communication**. 无线通信集成
+- **Hybrid EH** → **combine multiple sources** to improve reliability. 混合EH
 
 ### **EH Power Sources – Considerations**
 
@@ -2561,7 +2555,7 @@ $$
 
 The output power of a PV(光伏) cell is given by
 $$
-P_{\text{out}} = \eta G A
+P_{\text{out}} = \eta \ G A
 $$
 Substitute the values:
 $$
@@ -2963,7 +2957,7 @@ Conversion (DC to DC, AC to AC)
 
 ​	开关稳压器 DC->DC
 
-- *Mechanism:* Switches input on/off rapidly into a pulse wave, smoothed by an inductor/capacitor. The duty cycle determines the output.
+- *Mechanism:* Switches input on/off rapidly into a pulse wave, smoothed by an inductor/capacitor. The **duty cycle** determines the output.
     - 快速开/关输入，形成脉冲波，再通过电感/电容平滑处理。占空比决定输出。
 - *Types:* Buck (Step-down 降压), Boost (Step-up 升压), **Buck-Boost** (Both).
 - *Pros:* High efficiency (80-90%), handles high current, can step-up voltage.
@@ -3346,3 +3340,184 @@ Electric Double Layer Capacitor
 - **Pros:** High reliability, rugged (shock/vibration resistant), wide temperature range (-55°C to 200°C).
     - 高可靠性，坚固耐用（抗冲击/振动），宽温度范围（-55°C 至 200°C）。
 - **Cons:** High cost. 成本高。
+
+## 考前背诵部分
+
+```
+UART: Asynchronous, Full Duplex
+SPI: Synchronous, Full Duplex
+I²C: Synchronous, Half Duplex
+记忆法：
+UART 的 A 就是 Async 的意思
+I²C 有个2，是1/2双工
+
+Finite Difference Method (FDM): Temperature sensor
+Multi-physics and coupled models: Electromechanical sensor
+
+Spin Coating: organic solution
+Vacuum Deposition: metal
+Sputtering: metal
+Chemical Vapor Deposition (CVD): crystalline
+Electroplating: metal
+Photolithography: positive photoresist 中间曝光区域被去除。
+Wet Etching
+	HF: Isotropic 各向同性
+	KOH: Anisotropic 各向异性
+Dry Etching RIE: Anisotropic 各向异性
+Lift-off: 光刻胶被溶解时，其上方的金属层（中间部分）被去除
+
+Conductometric: Mechanical strain → dimension change → R change, Wheatstone
+Capacitive: Two electrodes, C = ε A / d
+Piezoelectric: Mechanical stress → charge generation
+	Hooke’s law: 应力 = 刚度 * 应变
+	Piezoelectric effect: 电通 = 压电 * 应变
+	Converse Piezoelectric effect: 应力 = - 压电 * 电场
+	Dielectric relation: 电通 = 介电 * 电场
+Magnetostrictive: magnetostrictive wire, pickup circiut, movable position magnet
+	current pulse -> magnetostrictive wire -> circular magnetic field -> interact with moveable position magnet -> strain pulse -> pick-up circuit(proportional) -> measured multiple times
+Piezoresistive: Mechanical strain → resistance change
+Optical: Intensity-based, interferometric, Photodiode, Doppler
+Resonant: frame, diaphragm, micro beam, driving electrode
+	AC -> driving electrode -> micro beam vibration -> piezoresistor -> circuit -> feedback to driving electrode -> close-loop oscillation
+Transistor-based: lateral movement of suspended gate -> width of the channel changing -> transistor's current change
+Acoustic: piezoelectric wafer, IDT for detecting SAW, reflectors
+	voltage -> IDT -> stress travels in both directions
+	Finger distance = 1/2 elastic wavelength λ
+Temperature:
+	Thermocouples: Seebeck effect
+	RTD: T ↑, metal R ↑
+	Thermistors: NTC ↓, PTC ↑.
+Polymer: Piezoelectric, Piezoresistive
+
+Noise: 
+	Inherent: Thermal, Shot, 1/f, Generation–recombination, Circuit
+	Interference: EMI, Vibration, Temperature, Quantization
+
+Electrostatic: 梳齿横向震动 交变静电力
+	fixed plate, movable comb
+	AC to fixed plates, DC to movable comb
+	comb move laterally due to alternatingg electrostatic F
+	L: mass, C: stiffniss, R: damping, T: conversion
+Electromagnetic 吸引移动板
+	coil wound on yoke
+	current generate magnetic flux
+	attract movable plate
+	G: conversion, 【C: inductance】, Co: model mechanical part, T: conversion
+Electrodynamic lorentz/laplace's Law
+	Permanent magnet: B
+	coil sits on rotational pole
+	current pass through coil
+	conductor sgement experience dF = idl X B
+	2 sides pf coil feel equal and opppsite F -> rotation
+	C01, T, R: damping, C: stiffness, L: mass
+Piezoelectric 逆压电
+	E to material during cooling
+	Domains same to direction of E
+	external E -> strain
+	length最大，length振动；thickness最小，thickness振动
+	Transformer, C0: static, Co: stiffness
+	【L: Impedance/inductance】, Gyrator, Co: model mechanical part
+Electrostrictive 二次方, thickness
+	E to polarize 电致伸缩 material
+	ions shift away -> strain
+	E>0 or E<0 -> expand thickness
+	C: static, Co:stiffness, L: mass, R: damping, Tansformer
+Magnetostrictive length
+	core, coil, fixtures
+	coil wound on core
+	current pass through coil
+	close magnetic loop
+	+ or - 磁化magnetization -> 正磁致伸缩 -> elongation length
+	Gyrator, 【L: impedance】, C: model mechanical part 
+Electrothermal
+	current, joule heating, thermal expansion, displacement
+	Bimorph: bending
+	Chevron: V-shape: linear
+	hot/cold arm: rotation
+热 最慢 能量密度最高 形变高
+静电 能效
+电磁 形变高（吸引移动板）
+压电 能效 快
+磁致伸缩 快
+电致伸缩 能效
+
+Hierarchy: 
+	Zero-Level: silicon wafer -> bare dies
+	First-Level: Die **glued** onto a **chip carrier**, Wire bonding
+	Second-Level: Through-hole mount, Surface mount
+	Third-Level: Multiple PCB -> motherboard
+
+Battery: chemical -> electrical and vise versa (rechargeable)
+Primary: Alkaline, Zinc-Air
+Secondary: Li-ion, LiPo, Redox Flow, Solid State, Lead Acid, NiHM
+
+Li-ion: + Li M O, - carbon, Electolyte: Li+
+	Dischage: Li+ from - to + through ele
+	e- flow through external circuit, providing power
+LiPo: solid polymer ele, in Al pouch
+Redox Flow: 2 ele solution in tanks, membrane
+	pumped through cell stack, redox reaction
+Solid-State: solid ele
+Lead-Acid: + PbO2, - Pb, ele H2SO4
+	PbO2 + Pb + 2H2SO4 -> 2PbSO4 + 2H2O
+NiMH: + Ni(OH)2, - Metal Alloy
+	Ni(OH)2 -> NiOOH, M -> MH
+Alkaline: + MnO2, - Zn, ele KOH
+	Zn -> ZnO, MnO2 is reduced, e- from - to +
+Zinc Air: + O2, - Zn, ele alkaline
+	cathode enable O2 to take part in reaction
+
+Gravimetric Energy Density / Specific Energy: Wh/kg
+Volumetric Energy Density: Wh/L
+Gravimetric Power Density: W/Kg
+Volumetric Power Density: W/L
+
+Limits of Batterries：
+	leakage / Self-discharge: batteries deplete during inactivity.
+	Environmental constraints: performance degrades in harsh conditions
+	Environmental impact: chemicals make recycling difficult.
+	Size & weight trade-offs: more capacity requires larger and heavier batteries.
+
+Advantages of EH:
+- **Economical**, simple, **sustainable** **fabrication**. 经济 简单 可持续 **制造**
+- Can use biodegradable / **biocompatible** **materials**. 生物相容 **材料**
+- **Lower maintenance**, Lower carbon footprint. 更少维护、碳排放
+- **Integrates** well with **wireless** **communication**. 无线通信集成
+- **Hybrid EH** → **combine multiple sources** to improve reliability. 混合EH
+
+Solar / Light: P = η G A, 效率*辐照*面积
+Wind: Pt = Cp * P0 = Cp * 1/2 ρ A v^3
+RF: P = η * P_rf * G * [λ/(4πd)]^2, λ = c/f
+Thermal: V = S ΔT, P = V^2 / R = S^2 ΔT^2 / (R_load + R_int)
+Hydro: P = ρ g H Q, Q：流量
+Aeroelastic:  fluid–structure interactions
+Sound (Acoustic): pressure oscillations from sound waves
+
+Protection
+	Overcharge: stop when Voltage hits threshold
+	Over-discharge: disconnect
+	short circuit: use fuse
+	thermal: monitor T and shutdown
+
+Batteries: 高能量密度, limited cycle life, 温度敏感
+Capacitors: 高功率密度, long cycle life, 低能量密度, 高成本
+
+Consumption Optimization
+	自适应采样 Adaptive Sampling
+	压缩技术 Compression Techniques
+	占空比控制 Duty Cycling
+	低功耗通信协议 Low-Power Communication Protocols
+	高效算法 Efficient Algorithms
+	边缘计算 Edge Computing
+
+Management Protocols
+	Energy-Efficient Routing 节能路由
+	Energy Harvesting Aware EH感知
+	Load Balancing 负载均衡
+
+Non-Polar: Creamic, Film
+Polar: Al electorlytic, Ta electrotic, Super
+
+Super: E = 1/2 * C * [V_1^2 - V_2^2]
+```
+
