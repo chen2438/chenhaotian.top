@@ -2,7 +2,7 @@
 description: 发布于 2025-12-24
 categories:
 - finance
-date: 2025-12-24
+date: 2025-12-25
 slug: bank-in-uk
 title: 英国各银行 卡BIN 信息整理
 updated:
@@ -28,6 +28,8 @@ copyright: true
 
 Refer (各得10 - 50镑): https://join.monzo.com/c/0xhzln6k
 
+**Debit**
+
 ![Monzo](https://media.opennet.top/i/2025/12/23/10wfbpv-0.jpg)
 
 | Field                     | Value            |
@@ -45,11 +47,32 @@ Refer (各得10 - 50镑): https://join.monzo.com/c/0xhzln6k
 | ISO Country Code A3       | GBR              |
 | ISO Country Currency      | GBP              |
 
+**Monzo Flex**
+
+![flex](https://media.opennet.top/i/2025/12/24/12kp7sc-0.jpg)
+
+| Field                     | Value            |
+| ------------------------- | ---------------- |
+| BIN/IIN                   | 555060           |
+| Card Brand                | MASTERCARD       |
+| Card Type                 | CREDIT           |
+| Card Level                | PLATINUM         |
+| Issuer Name / Bank        | MONZO BANK, LTD. |
+| Issuer's / Bank's Website | -----            |
+| Issuer / Bank Phone       | -----            |
+| ISO Country Name          | UNITED KINGDOM   |
+| Country Flag              | 🇬🇧               |
+| ISO Country Code A2       | GB               |
+| ISO Country Code A3       | GBR              |
+| ISO Country Currency      | GBP              |
+
 ### Revolut UK
 
 需要验证居留权
 
 卡面可自定义图案
+
+有实体卡费，可开多张虚拟卡
 
 Refer:  https://revolut.com/referral/?referral-code=haotian03!DEC2-25-VR-GB-MDL-ROI&geo-redirect
 
@@ -71,6 +94,8 @@ Refer:  https://revolut.com/referral/?referral-code=haotian03!DEC2-25-VR-GB-MDL-
 | ISO Country Currency      | GBP            |
 
 ### Wise UK
+
+无需多言
 
 Refer: https://wise.com/invite/ahpc/zjlb1kj
 
@@ -95,6 +120,8 @@ Refer: https://wise.com/invite/ahpc/zjlb1kj
 
 Refer: 仅受邀用户有
 
+需检查信报
+
 ![chase](https://media.opennet.top/i/2025/12/23/112kgst-0.jpg)
 
 | Field                     | Value                   |
@@ -114,7 +141,7 @@ Refer: 仅受邀用户有
 
 ### Zopa
 
-Refer: 仅受邀客户有
+Refer: 仅受邀用户有
 
 ![zopa](https://media.opennet.top/i/2025/12/23/1149vhl-0.jpg)
 
@@ -138,8 +165,6 @@ Refer: 仅受邀客户有
 Refer (各得 5 镑): https://www.ifastgb.com/tellafriend/haotianc1209
 
 ![ifast](https://media.opennet.top/i/2025/12/23/119mja3-0.jpg)
-
-**卡BIN是准确的，其他信息仅供参考**
 
 | Field                     | Value                |
 | ------------------------- | -------------------- |
@@ -168,7 +193,9 @@ Refer (各得 5 镑): https://www.ifastgb.com/tellafriend/haotianc1209
 
 Refer(各得 5 镑): https://zilch.onelink.me/x8EV/otj1u4d0
 
-卡BIN是准确的，其他信息仅供参考。
+![zilch](https://media.opennet.top/i/2025/12/25/t2w2y5-0.jpeg)
+
+卡BIN是准确的，其他信息仅供参考
 
 | Field                     | Value         |
 | ------------------------- | ------------- |
@@ -191,7 +218,7 @@ Refer: https://join.yondercard.com/cu7akn4
 
 ![yonder](https://media.opennet.top/i/2025/12/23/11cjkh8-0.jpg)
 
-**卡BIN是准确的，其他信息仅供参考**
+卡BIN是准确的，其他信息仅供参考
 
 | Field                     | Value                    |
 | ------------------------- | ------------------------ |
@@ -212,7 +239,7 @@ Refer: https://join.yondercard.com/cu7akn4
 
 需大学 Offer
 
-Refer: 私我TG。
+Refer: 私我TG
 
 ![IMG_20251223_142241](https://media.opennet.top/i/2025/12/23/123h8l9-0.jpg)
 
@@ -255,6 +282,12 @@ Refer (有时间限制；消费5镑后各得10镑): https://py.pl/1BxfvJ
 ### Stripe UK
 
 需要英国 business 身份
+
+一个金融账户至多可开 100 张虚拟卡
+
+每个持卡人至多 2 张实体卡，20 张虚拟卡
+
+不支持现金类交易
 
 Refer: 无
 
@@ -350,6 +383,8 @@ Refer: https://invite.klarna.com/gb/cgf8ttj2/default-gb
 
 返现 1.5% 到股票，每月限 10 镑
 
+有虚拟卡
+
 Refer (3次5镑以上消费，得25镑，有时间限制): https://www.trading212.com/invite/4Dqci95J529
 
 ![212](https://media.opennet.top/i/2025/12/23/12hk7t7-0.jpg)
@@ -371,7 +406,7 @@ Refer (3次5镑以上消费，得25镑，有时间限制): https://www.trading21
 
 ### Coinbase UK
 
-可无损入英镑]
+可无损入英镑
 
 无返现
 
@@ -404,6 +439,8 @@ Refer: 无
 
 卡背面标识为 world elite debit
 
+有虚拟卡
+
 Refer: 无
 
 ![krak](https://media.opennet.top/i/2025/12/23/12lpy5t-0.jpg)
@@ -429,6 +466,8 @@ Refer: 无
 
 有返现
 
+![COCA](https://media.opennet.top/i/2025/12/24/uqk0rf-0.jpeg)
+
 Refer: https://wwallet.app.link/referral?referral_code=f4GVuJTuthk
 
 | Field                     | Value          |
@@ -445,6 +484,60 @@ Refer: https://wwallet.app.link/referral?referral_code=f4GVuJTuthk
 | ISO Country Code A2       | GB             |
 | ISO Country Code A3       | GBR            |
 | ISO Country Currency      | GBP            |
+
+### Crypto.com
+
+实体卡需付费
+
+APP 设计的不是很流畅
+
+有多档会员可选
+
+Refer: 无
+
+![crypto.com](https://media.opennet.top/i/2025/12/24/upsuul-0.jpeg)
+
+| Field                     | Value             |
+| ------------------------- | ----------------- |
+| BIN/IIN                   | 487139            |
+| Card Brand                | VISA              |
+| Card Type                 | DEBIT             |
+| Card Level                | CLASSIC           |
+| Issuer Name / Bank        | FORISGFS UK, LTD. |
+| Issuer's / Bank's Website | -----             |
+| Issuer / Bank Phone       | -----             |
+| ISO Country Name          | UNITED KINGDOM    |
+| Country Flag              | 🇬🇧                |
+| ISO Country Code A2       | GB                |
+| ISO Country Code A3       | GBR               |
+| ISO Country Currency      | GBP               |
+
+### Ready
+
+无需多言
+
+Metal Plan 卡可以被 Flywire 识别为英国本地卡
+
+卡背面有 world elite 字样
+
+Refer: 无
+
+![Ready](https://media.opennet.top/i/2025/12/24/12i88bb-0.jpg)
+
+| Field                     | Value        |
+| ------------------------- | ------------ |
+| BIN/IIN                   | 524013       |
+| Card Brand                | MASTERCARD   |
+| Card Type                 | CREDIT       |
+| Card Level                | STANDARD     |
+| Issuer Name / Bank        | UNIBANK CJSC |
+| Issuer's / Bank's Website | -----        |
+| Issuer / Bank Phone       | -----        |
+| ISO Country Name          | ARMENIA      |
+| Country Flag              | 🇦🇲           |
+| ISO Country Code A2       | AM           |
+| ISO Country Code A3       | ARM          |
+| ISO Country Currency      | AMD          |
 
 ## 高街银行
 
@@ -494,7 +587,9 @@ Refer: 无
 
 ### Lloyds
 
-需邮送激活码
+需邮送开户激活码
+
+可以开多个 Current Account 以供 Switch
 
 Refer（各得50镑）: https://apply.lloydsbank.co.uk/sales-content/cwa/l/onboardpca/index-app.html?from=ob&webDirect=true&redesign=true&token=kZlW8U4JjTpLJmJQ+ocC7kZHPXaoYJ0DweAbgTn4TTs=&redesign=true#/refer-friend
 
@@ -517,7 +612,9 @@ Refer（各得50镑）: https://apply.lloydsbank.co.uk/sales-content/cwa/l/onboa
 
 ### Halifax
 
-需邮送激活码
+需邮送开户激活码。若和小马（Lloyds）一起申请，则通常一起送到。
+
+可以开多个 Current Account 以供 Switch
 
 其与 BANK OF SCOTLAND 和 LLOYDS BANK 是同一个集团
 
@@ -544,7 +641,13 @@ Refer: 无
 
 > Barclays APP 设计水平有待提升
 
-需验证GPS定位，需邮送激活码
+需验证GPS定位，需邮送开户激活码
+
+大额快进快出容易关户；非 APP 内部加 Apple Pay 容易锁卡（不锁账户，即使亲临分行也需要打电话解）
+
+关户后需亲临分行领取账户余额，或邮寄支票
+
+![2025-12-24 10.39.39 Small](https://media.opennet.top/i/2025/12/24/ufhm1n-0.jpeg)
 
 Refer: 无
 
@@ -566,6 +669,8 @@ Refer: 无
 | ISO Country Currency      | GBP                  |
 
 ### NatWest
+
+可以开多个 Current Account 以供 Switch
 
 Refer: 无
 
@@ -590,6 +695,10 @@ Refer: 无
 
 ### Nationwide
 
+若用非英国证件验证开户，会寄送读卡器。转账需要用到读卡器，约一个月后可免读卡器转账。
+
+![2025-12-24 10.44.22 Small](https://media.opennet.top/i/2025/12/24/ui5lrk-0.jpeg)
+
 Refer: 无
 
 ![nationwide](https://media.opennet.top/i/2025/12/23/10h2y7k-0.jpg)
@@ -613,7 +722,13 @@ Refer: 无
 
 ### Bank of China UK
 
-需要线下开户，中银转中银英国免手续费
+需要线下开户
+
+中银转中银英国免手续费
+
+有密码器
+
+![2025-12-24 10.46.41 Small](https://media.opennet.top/i/2025/12/24/uju5o3-0.jpeg)
 
 Refer: 无
 
