@@ -22,6 +22,7 @@ menu:
   项目: /projects/ || fas fa-book
   碎碎念: https://blog.vayki.com/ || fas fa-blog
   关于: /about/ || fas fa-heart
+  测试: /test/ || fas fa-flask
 
 
 # Code Blocks (代碼相關)
