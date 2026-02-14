@@ -11,6 +11,8 @@ nav:
 # 图标代码: https://fontawesome.com/search
 menu:
   首页: / || fas fa-home
+  VPS: /vps/ || fas fa-server
+  Study: /study/ || fas fa-book
   时间轴: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
@@ -22,7 +24,6 @@ menu:
   项目: /projects/ || fas fa-book
   碎碎念: https://blog.vayki.com/ || fas fa-blog
   关于: /about/ || fas fa-heart
-  测试: /categories/test/ || fas fa-flask
 
 
 # Code Blocks (代碼相關)
