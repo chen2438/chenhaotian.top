@@ -5,7 +5,7 @@ categories:
 date: 2026-05-10
 slug: advanced-network-final-review
 title: 高级网络 期末复习
-updated:
+updated: 2026-05-11
 tags:
 - study
 - bristol
@@ -1931,7 +1931,7 @@ f. If a link changes in the network from ‘better’ to ‘worse’ (or cheaper
 
 > 来源：EENGM4211 - 2023 Q14
 
-Q14: [判断题]Ad-hoc **On-demand** Distance Vector (AODV) routing protocol is a **proactive** protocol because it builds the routes to the nodes in the network whenever they **are needed**.
+Q14: [判断题]Ad-hoc **On-demand** **Distance Vector** (AODV) routing protocol is a **proactive** protocol because it builds the routes to the nodes in the network whenever they **are needed**.
 
 Answer: False. AODV 是 **reactive（按需）协议**，不是 proactive
 
@@ -2643,7 +2643,7 @@ Packet dropping policies
     - 可能需要大量状态信息
     - 更公平
 
-### RED 随机早期检测
+### 随机早期检测 RED
 
 - **随机早期检测（Random Early Detection）：**
     - 在真正拥塞发生之前检测到拥塞
@@ -2738,9 +2738,13 @@ Resource ReSerVation Protocol
 
 ### IP QoS 方法
 
-> IntServ：对“每一条流”单独保证 QoS
+> **IntServ**：通过 RSVP 为每个 flow 进行端到端资源预留，以提供明确的 QoS 保证。  
 >
-> DiffServ：对“某一类流量”统一处理
+> ​	Performs **end-to-end resource reservation** for **each flow** via **RSVP** to provide explicit **QoS** **guarantees**.
+>
+> **DiffServ**：把流量分类并标记为不同服务等级，让路由器按类别提供差异化转发服务。
+>
+> ​	**Classifies and marks traffic** into different service levels, allowing routers to **provide differentiated forwarding services** by category.
 
 #### IntServ
 
@@ -3696,7 +3700,7 @@ Pros & Cons:
 
 优点（好的impact）：维度n++ => 节点邻居 neighbours of node ++ 
 
-​	=> 路径多样性 path diversity ++ => 直径 diameter -- => 延迟 latency --
+​	=> 路径多样性 path diversity ++ => **直径 diameter -- => 延迟 latency --**
 
 ​	且 => 对分带宽 bisection bandwith ++
 
