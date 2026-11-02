@@ -1001,5 +1001,5 @@ CDN:
     # prismjs_autoloader:
     # artalk_js:
     # artalk_css:
-    # busuanzi:
+    busuanzi: https://events.vercount.one/js
     # abcjs_basic_js:
